@@ -48,7 +48,7 @@ export const Navbar = () => {
           </NavLink>
         </div>
         {!showMenu && (
-          <button
+          <div
             aria-label="open menu"
             onClick={() => setShowMenu(true)}
             className={`${
@@ -56,7 +56,7 @@ export const Navbar = () => {
             } outline-none rounded ease-in-out duration-300 focus:ring-gray-600 lg:hidden`}
           >
             <AiOutlineMenu className="text-[30px]" />
-          </button>
+          </div>
         )}
         {/* links */}
         <div className="hidden lg:flex space-x-4 items-center">
@@ -80,12 +80,12 @@ export const Navbar = () => {
         } absolute w-[100%] top-0 left-0 z-30 pt-[24px] bg-white h-screen`}
       >
         <div className="container mx-auto px-8">
-          <button
+          <div
             onClick={() => setShowMenu(false)}
             className="mt-[16px] outline-none float-right ease-in-out duration-300 rounded"
           >
             <HiOutlineX className="text-[30px]" />
-          </button>
+          </div>
           <div data-aos="fade-down" className="grid mt-[50px]">
             <div className="grid gap-5 text-lg">
               {navLinks.map((navLink, index) => (
