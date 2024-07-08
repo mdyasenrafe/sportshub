@@ -1,10 +1,12 @@
 import "./App.css";
+import { MainLayout } from "./components/atoms/layout/MainLayout";
 
 function App() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </div>
+    <MainLayout>
+      <h1>Test</h1>
+      <h1>double</h1>
+    </MainLayout>
   );
 }
 
