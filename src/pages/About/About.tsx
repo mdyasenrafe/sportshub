@@ -1,5 +1,10 @@
 import React from "react";
+import { MainLayout } from "../../components/atoms/layout/MainLayout";
 
 export const About = () => {
-  return <div>About</div>;
+  return (
+    <MainLayout>
+      <div>About</div>
+    </MainLayout>
+  );
 };

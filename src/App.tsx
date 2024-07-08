@@ -1,13 +1,9 @@
+import { RouterProvider } from "react-router-dom";
 import "./App.css";
-import { MainLayout } from "./components/atoms/layout/MainLayout";
+import { router } from "./routes/router";
 
 function App() {
-  return (
-    <MainLayout>
-      <h1>Test</h1>
-      <h1>double</h1>
-    </MainLayout>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
