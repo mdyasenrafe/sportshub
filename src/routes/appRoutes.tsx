@@ -1,19 +1,12 @@
 import React from "react";
-import {
-  About,
-  Cart,
-  Checkout,
-  Home,
-  ManageProduct,
-  Products,
-  SingleProduct,
-} from "../pages";
+import { About, Cart, Checkout, Home, Products, SingleProduct } from "../pages";
+import { CreateProduct, ManageProducts } from "../pages/manageProduct";
 
 export type AppRoute = {
   id: number;
   name: string;
   path: string;
-  component: React.ReactNode;
+  component?: React.ReactNode;
   isNavItem: boolean;
   children?: AppRoute[];
 };
@@ -51,21 +44,20 @@ export const appRoutes: AppRoute[] = [
     id: 4,
     name: "Manage Product",
     path: "/manage-product",
-    component: <ManageProduct />,
     isNavItem: true,
     children: [
       {
         id: 4.1,
         name: "Products",
         path: "/manage-product/products",
-        component: <Products />,
+        component: <ManageProducts />,
         isNavItem: false,
       },
       {
         id: 4.2,
         name: "Create New Product",
         path: "/manage-product/create",
-        component: <Products />,
+        component: <CreateProduct />,
         isNavItem: false,
       },
     ],

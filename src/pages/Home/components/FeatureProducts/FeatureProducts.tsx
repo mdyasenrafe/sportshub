@@ -185,9 +185,6 @@ const featuredProducts: TProduct[] = [
 ];
 
 export const FeatureProducts = () => {
-  console.log(
-    JSON.stringify(featuredProducts.map((prouduct) => prouduct.category))
-  );
   return (
     <section className="py-40 relative">
       <Container>
