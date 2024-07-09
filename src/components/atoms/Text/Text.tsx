@@ -1,12 +1,12 @@
 // Text.tsx
-import React from "react";
+import React, { CSSProperties, HTMLAttributes } from "react";
 import { textVariants, TextVariant } from "./TextStyles";
 import { Typography } from "antd";
 
-interface TextProps {
+interface TextProps extends HTMLAttributes<HTMLSpanElement> {
   variant?: TextVariant;
   className?: string;
-  children: React.ReactNode;
+  style?: CSSProperties;
 }
 
 export const Text: React.FC<TextProps> = ({
