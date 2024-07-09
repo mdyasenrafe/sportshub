@@ -1,0 +1,31 @@
+export enum TextVariant {
+  H1 = "h1",
+  H2 = "h2",
+  H3 = "h3",
+  H4 = "h4",
+  H5 = "h5",
+  H6 = "h6",
+  P1 = "p1",
+  P2 = "p2",
+  P3 = "p3",
+  P4 = "p4",
+  P5 = "p5",
+  P6 = "p6",
+  Body = "body",
+}
+
+export const textVariants: Record<TextVariant, string> = {
+  [TextVariant.H1]: "text-4xl font-bold text-gray-900",
+  [TextVariant.H2]: "text-3xl font-bold text-gray-900",
+  [TextVariant.H3]: "text-2xl font-bold text-gray-900",
+  [TextVariant.H4]: "text-xl font-semibold text-gray-900",
+  [TextVariant.H5]: "text-lg font-medium text-gray-900",
+  [TextVariant.H6]: "text-base font-medium text-gray-900",
+  [TextVariant.P1]: "text-lg font-normal text-gray-900",
+  [TextVariant.P2]: "text-base font-normal text-gray-900",
+  [TextVariant.P3]: "text-md font-normal text-gray-900",
+  [TextVariant.P4]: "text-sm font-normal text-gray-800",
+  [TextVariant.P5]: "text-xs font-light text-gray-700",
+  [TextVariant.P6]: "text-xs font-light text-gray-600",
+  [TextVariant.Body]: "text-base font-normal text-gray-900",
+};
