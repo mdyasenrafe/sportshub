@@ -1,4 +1,3 @@
-// src/components/CustomButton.tsx
 import React from "react";
 import { Button } from "antd";
 import { ButtonProps } from "antd/lib/button";
@@ -10,7 +9,7 @@ interface CustomButtonProps extends ButtonProps {
   icon?: ReactNode;
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({
+export const CustomButton: React.FC<CustomButtonProps> = ({
   children,
   colorKey,
   icon,
@@ -27,5 +26,3 @@ const CustomButton: React.FC<CustomButtonProps> = ({
     </Button>
   );
 };
-
-export default CustomButton;

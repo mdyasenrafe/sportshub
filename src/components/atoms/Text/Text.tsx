@@ -1,4 +1,3 @@
-// Text.tsx
 import React, { CSSProperties, HTMLAttributes } from "react";
 import { textVariants, TextVariant } from "./TextStyles";
 import { Typography } from "antd";

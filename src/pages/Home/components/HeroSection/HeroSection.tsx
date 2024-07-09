@@ -8,8 +8,12 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 // Custom components and styles
-import { Container, Text, TextVariant } from "../../../../components/atoms";
-import CustomButton from "../../../../components/atoms/CustomButton/CustomButton";
+import {
+  Container,
+  CustomButton,
+  Text,
+  TextVariant,
+} from "../../../../components/atoms";
 import { FaShoppingCart } from "react-icons/fa";
 import { colors } from "../../../../theme/color";
 
