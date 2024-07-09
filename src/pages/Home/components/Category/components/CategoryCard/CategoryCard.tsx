@@ -1,18 +1,7 @@
 import React from "react";
 import { Text, TextVariant } from "../../../../../../components/atoms";
 import { colors } from "../../../../../../theme/color";
-
-type TCategory = {
-  icon: JSX.Element;
-  name: string;
-  link: string;
-  description: string;
-};
-
-interface CategoryCardProps {
-  data: TCategory;
-  onClick: () => void;
-}
+import { CategoryCardProps } from "./types";
 
 export const CategoryCard: React.FC<CategoryCardProps> = ({
   data,

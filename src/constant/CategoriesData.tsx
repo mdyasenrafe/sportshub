@@ -8,13 +8,7 @@ import {
   FaCampground,
   FaTableTennis,
 } from "react-icons/fa";
-
-type TCategory = {
-  icon: JSX.Element;
-  name: string;
-  link: string;
-  description: string;
-};
+import { TCategory } from "../pages/Home/components/Category/components/CategoryCard/types";
 
 export const CategoriesData: TCategory[] = [
   {
