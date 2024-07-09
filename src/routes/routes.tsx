@@ -1,9 +1,10 @@
+import React from "react";
 import {
   About,
   Cart,
   Home,
   ManageProduct,
-  Porducts,
+  Products,
   SingleProduct,
 } from "../pages";
 
@@ -11,11 +12,12 @@ export type TRoute = {
   id: number;
   name: string;
   path: string;
-  component: string;
+  component: React.ReactNode;
   nav: boolean;
+  children?: TRoute[];
 };
 
-export const Routes = [
+export const Routes: TRoute[] = [
   {
     id: 1,
     name: "Home",
@@ -28,36 +30,53 @@ export const Routes = [
     name: "About",
     path: "/about",
     component: <About />,
-    nav: true, // Include in Navbar
+    nav: true,
   },
   {
     id: 3,
     name: "Products",
     path: "/products",
-    component: <Porducts />,
-    nav: true, // Include in Navbar
+    component: <Products />,
+    nav: true,
+  },
+  {
+    id: 6,
+    name: "Cart",
+    path: "/cart",
+    component: <Cart />,
+    nav: true,
   },
   {
     id: 4,
     name: "Manage Product",
     path: "/manage-product",
     component: <ManageProduct />,
-    nav: true, // Include in Navbar
+    nav: true,
+    children: [
+      {
+        id: 4.1,
+        name: "Products",
+        path: "/manage-product/products",
+        component: <Products />,
+        nav: false,
+      },
+      {
+        id: 4.2,
+        name: "Create New Product",
+        path: "/manage-product/create",
+        component: <Products />,
+        nav: false,
+      },
+    ],
   },
   {
     id: 5,
     name: "Single Product",
     path: "/single-product",
     component: <SingleProduct />,
-    nav: false, // Exclude from Navbar
+    nav: false,
   },
-  {
-    id: 6,
-    name: "cart",
-    path: "/cart",
-    component: <Cart />,
-    nav: true,
-  },
+
   {
     id: 7,
     name: "Checkout",

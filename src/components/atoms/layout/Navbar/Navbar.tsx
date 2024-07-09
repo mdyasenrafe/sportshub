@@ -1,16 +1,17 @@
-import { MenuProps } from "antd";
-import React, { useState, useEffect } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Menu, MenuProps } from "antd";
+import { useState, useEffect } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { AiOutlineMenu } from "react-icons/ai";
 import { HiOutlineX } from "react-icons/hi";
-import { Routes, TRoute } from "../../../../routes/routes";
-
-type MenuItem = Required<MenuProps>["items"][number];
+import { Routes } from "../../../../routes/routes";
+import { navItemsGenerator } from "../../../../utils/navItemGenerator";
 
 export const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [headerFixed, setHeaderFixed] = useState(false);
   const navigation = useNavigate();
+  const location = useLocation();
+  const currentPath = location.pathname;
 
   // Handle scroll change header
   useEffect(() => {
@@ -28,7 +29,7 @@ export const Navbar = () => {
     };
   }, []);
 
-  const navLinks = Routes.filter((route) => route.nav);
+  console.log(navItemsGenerator(Routes));
 
   return (
     <div
@@ -37,7 +38,7 @@ export const Navbar = () => {
       } min-w-full transition-all delay-75 ease-in-out py-2`}
     >
       <div className="flex justify-between items-center w-full">
-        <div className="ml-3">
+        <div className="ml-3 w-[30%]">
           <NavLink to="/" className="flex items-center">
             <img
               className="h-[40px] py-1 cursor-pointer"
@@ -46,6 +47,19 @@ export const Navbar = () => {
             />
             <h1 className="hidden lg:inline mx-2">SportsHub</h1>
           </NavLink>
+        </div>
+
+        {/* links */}
+        <div className="hidden  lg:flex w-[70%]">
+          <Menu
+            style={{
+              width: "100%",
+              justifyContent: "end",
+            }}
+            mode="horizontal"
+            items={navItemsGenerator(Routes)}
+            selectedKeys={[currentPath]}
+          />
         </div>
         {!showMenu && (
           <div
@@ -58,26 +72,13 @@ export const Navbar = () => {
             <AiOutlineMenu className="text-[30px]" />
           </div>
         )}
-        {/* links */}
-        <div className="hidden lg:flex space-x-4 items-center">
-          {navLinks.map((link) => (
-            <Link
-              to={link.path}
-              key={link.id}
-              onClick={() => setShowMenu(false)}
-              className="cursor-pointer"
-            >
-              {link.name}
-            </Link>
-          ))}
-        </div>
       </div>
 
       {/* Mobile menu */}
       <div
         className={`${
           showMenu ? "flex ease-in-out duration-300" : "hidden"
-        } absolute w-[100%] top-0 left-0 z-30 pt-[24px] bg-white h-screen`}
+        } lg:hidden absolute w-[100%] top-0 left-0 z-30 pt-[24px] bg-white h-screen`}
       >
         <div className="container mx-auto px-8">
           <div
@@ -88,13 +89,7 @@ export const Navbar = () => {
           </div>
           <div data-aos="fade-down" className="grid mt-[50px]">
             <div className="grid gap-5 text-lg">
-              {navLinks.map((navLink, index) => (
-                <div key={index}>
-                  <Link onClick={() => setShowMenu(false)} to={navLink.path}>
-                    {navLink.name}
-                  </Link>
-                </div>
-              ))}
+              <Menu mode="inline" items={navItemsGenerator(Routes)} />
             </div>
           </div>
         </div>
