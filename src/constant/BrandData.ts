@@ -1,0 +1,18 @@
+export const BRAND_DATA = [
+  "Athletix",
+  "AquaFast",
+  "ProHoop",
+  "ZenFlex",
+  "RideSafe",
+  "HighRange",
+  "GoalMaster",
+  "EagleStrike",
+  "CourtMaster",
+  "FitRow",
+  "FlexiForm",
+  "ProStroke",
+  "TrailBlazer",
+  "AlpinePro",
+  "SkyHigh",
+  "GameMaster",
+];

@@ -64,3 +64,22 @@ export const CategoriesData: TCategory[] = [
     link: "racquet-sports",
   },
 ];
+
+export const CATEGORIES_DATA_ARRAY = [
+  "Running",
+  "Water Sports",
+  "Team Sports",
+  "Yoga",
+  "Cycling",
+  "Outdoor Adventure",
+  "Team Sports",
+  "Team Sports",
+  "Racquet Sports",
+  "Fitness",
+  "Yoga",
+  "Team Sports",
+  "Cycling",
+  "Outdoor Adventure",
+  "Outdoor Adventure",
+  "Gaming",
+];
