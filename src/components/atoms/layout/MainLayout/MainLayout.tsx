@@ -6,10 +6,10 @@ import { Container } from "../../Container";
 
 export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
-    <Container>
+    <React.Fragment>
       <Navbar />
       {children}
       <Footer />
-    </Container>
+    </React.Fragment>
   );
 };

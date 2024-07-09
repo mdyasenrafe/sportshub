@@ -20,3 +20,22 @@ html {
 .font-figtree {
   font-family: "Figtree", sans-serif !important;
 }
+.hero-section {
+  background-size: cover;
+  display: flex;
+  background-position: 70%;
+  background-repeat: no-repeat;
+  display: flex !important;
+}
+:where(.css-dev-only-do-not-override-98ntnt).ant-btn-default:not(:disabled):not(
+    .ant-btn-disabled
+  ):hover {
+  border-color: #9eb567 !important;
+  background-color: white !important;
+  color: #9eb567 !important ;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  display: none !important;
+}

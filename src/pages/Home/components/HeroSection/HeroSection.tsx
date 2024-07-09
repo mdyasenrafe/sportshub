@@ -1,46 +1,47 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination } from "swiper/modules";
+
+// Import Swiper styles
 import "swiper/css";
-import { colors } from "../../../../theme/color";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+// Custom components and styles
+import { Container, Text, TextVariant } from "../../../../components/atoms";
 import CustomButton from "../../../../components/atoms/CustomButton/CustomButton";
-import { FaPowerOff } from "react-icons/fa";
-import { Typography } from "antd";
-import { Text, TextVariant } from "../../../../components/atoms";
+import { FaShoppingCart } from "react-icons/fa";
+import { colors } from "../../../../theme/color";
 
 export const HeroSection = () => {
   const sportsCarouselData = [
     {
-      image: "url-to-image-marathon.jpg",
-      altText: "Marathon Gear Sale",
-      title: "Gear Up for the Marathon",
+      image: "https://i.ibb.co/18JxH2C/hero-1.png", // Updated image URL for consistency
+      title: "Gear Up for the Marathon - 30% Off",
       description: "Save up to 30% on all marathon essentials!",
       link: "/category/marathon-gear",
     },
     {
-      image: "url-to-image-yoga.jpg",
-      altText: "Yoga Essentials Discount",
-      title: "Find Your Zen",
+      image: "https://i.ibb.co/18JxH2C/hero-1.png",
+      title: "Find Your Zen - 25% Off",
       description: "Up to 25% off on yoga mats, blocks, and apparel.",
       link: "/category/yoga",
     },
     {
-      image: "url-to-image-football.jpg",
-      altText: "Football Season Special",
-      title: "Football Season Kickoff",
+      image: "https://i.ibb.co/18JxH2C/hero-1.png",
+      title: "Football Season Kickoff - 40% Off",
       description: "Get ready for the season with up to 40% off football gear!",
       link: "/category/football",
     },
     {
-      image: "url-to-image-cycling.jpg",
-      altText: "Cycling Adventures",
-      title: "Hit the Trails",
+      image: "https://i.ibb.co/18JxH2C/hero-1.png",
+      title: "Hit the Trails - 35% Off",
       description: "Enjoy deals on bikes and accessories up to 35% off.",
       link: "/category/cycling",
     },
     {
-      image: "url-to-image-fitness.jpg",
-      altText: "Fitness Gear Sale",
-      title: "Boost Your Workout",
+      image: "https://i.ibb.co/18JxH2C/hero-1.png",
+      title: "Boost Your Workout - 50% Off",
       description: "Essential fitness gear at a discount of up to 50%!",
       link: "/category/fitness",
     },
@@ -56,39 +57,44 @@ export const HeroSection = () => {
           delay: 2500,
           disableOnInteraction: false,
         }}
+        centeredSlides={true}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Autoplay, Pagination]}
+        className="mySwiper"
       >
         {sportsCarouselData.map((item, index) => (
           <SwiperSlide
             key={index}
-            className="flex flex-col justify-center items-center text-white py-24"
+            className="flex flex-col justify-center text-white py-24 hero-section"
             style={{
-              backgroundImage: `linear-gradient(rgba(0,0,0,.678) 100%,rgba(0,0,0,.582) 0),url(https://i.ibb.co/18JxH2C/hero-1.png)`,
-
-              height: "700px",
-              backgroundSize: "cover",
-              backgroundPosition: "70%",
-              backgroundRepeat: "no-repeat",
-              display: "flex",
+              backgroundImage: `url(${item.image})`,
+              height: "100vh",
             }}
           >
-            <div className="text-center px-4 md:px-8 lg:px-24">
+            <Container>
               <Text
                 variant={TextVariant.H1}
                 style={{
-                  color: colors.danger,
+                  color: colors.secondary,
                 }}
+                className="text-4xl md:text-[64px] leading-[2.75rem] sm:leading-[2.75rem] lg:leading-[4.75rem]"
               >
                 {item.title}
               </Text>
-              <p>{item.description}</p>
+              <Text variant={TextVariant.P1}>{item.description}</Text>
               <CustomButton
                 colorKey="primary"
                 onClick={() => console.log("Clicked!")}
-                icon={<FaPowerOff />}
+                icon={<FaShoppingCart />}
+                className="text-white h-[40px] w-[232px] mt-4"
+                iconPosition="end"
               >
-                Primary Button
+                Buy Now
               </CustomButton>
-            </div>
+            </Container>
           </SwiperSlide>
         ))}
       </Swiper>
