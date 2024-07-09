@@ -1,8 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
-import { Routes, TRoute } from "./routes";
+import { appRoutes, AppRoute } from "./appRoutes";
 
-// Helper function to convert TRoute to route config format
-const convertToRouteConfig = (route: TRoute) => {
+const convertToRouteConfig = (route: AppRoute) => {
   const config: any = {
     path: route.path,
     element: route.component,
@@ -15,6 +14,6 @@ const convertToRouteConfig = (route: TRoute) => {
   return config;
 };
 
-const routerConfig = Routes.map(convertToRouteConfig);
+const routerConfig = appRoutes.map(convertToRouteConfig);
 
 export const router = createBrowserRouter(routerConfig);

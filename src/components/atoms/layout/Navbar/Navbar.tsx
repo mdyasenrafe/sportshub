@@ -1,21 +1,21 @@
-import { Menu, MenuProps } from "antd";
+import { Menu } from "antd";
 import { useState, useEffect } from "react";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { AiOutlineMenu } from "react-icons/ai";
 import { HiOutlineX } from "react-icons/hi";
-import { Routes } from "../../../../routes/routes";
-import { navItemsGenerator } from "../../../../utils/navItemGenerator";
+import { appRoutes } from "../../../../routes/appRoutes";
+import { generateNavItems } from "../../../../utils/navItemGenerator";
 
 export const Navbar = () => {
-  const [showMenu, setShowMenu] = useState(false);
-  const [headerFixed, setHeaderFixed] = useState(false);
-  const navigation = useNavigate();
+  const [isMenuVisible, setMenuVisibility] = useState(false);
+  const [isHeaderFixed, setHeaderFixed] = useState(false);
+  const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
 
-  // Handle scroll change header
+  // Handle scroll to change header style
   useEffect(() => {
-    const headerChange = () => {
+    const handleHeaderChange = () => {
       if (window.scrollY > 10) {
         setHeaderFixed(true);
       } else {
@@ -23,18 +23,18 @@ export const Navbar = () => {
       }
     };
 
-    window.addEventListener("scroll", headerChange);
+    window.addEventListener("scroll", handleHeaderChange);
     return () => {
-      window.removeEventListener("scroll", headerChange);
+      window.removeEventListener("scroll", handleHeaderChange);
     };
   }, []);
 
-  console.log(navItemsGenerator(Routes));
+  const navItems = generateNavItems(appRoutes);
 
   return (
     <div
       className={`${
-        headerFixed ? "fixed bg-white py-2 z-30 shadow-lg" : "z-30 bg-color"
+        isHeaderFixed ? "fixed bg-white py-2 z-30 shadow-lg" : "z-30 bg-color"
       } min-w-full transition-all delay-75 ease-in-out py-2`}
     >
       <div className="flex justify-between items-center w-full">
@@ -49,24 +49,24 @@ export const Navbar = () => {
           </NavLink>
         </div>
 
-        {/* links */}
-        <div className="hidden  lg:flex w-[70%]">
+        {/* Navigation Links */}
+        <div className="hidden lg:flex w-[70%]">
           <Menu
             style={{
               width: "100%",
               justifyContent: "end",
             }}
             mode="horizontal"
-            items={navItemsGenerator(Routes)}
+            items={navItems}
             selectedKeys={[currentPath]}
           />
         </div>
-        {!showMenu && (
+        {!isMenuVisible && (
           <div
             aria-label="open menu"
-            onClick={() => setShowMenu(true)}
+            onClick={() => setMenuVisibility(true)}
             className={`${
-              !headerFixed && "text-black"
+              !isHeaderFixed && "text-black"
             } outline-none rounded ease-in-out duration-300 focus:ring-gray-600 lg:hidden`}
           >
             <AiOutlineMenu className="text-[30px]" />
@@ -74,22 +74,26 @@ export const Navbar = () => {
         )}
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       <div
         className={`${
-          showMenu ? "flex ease-in-out duration-300" : "hidden"
+          isMenuVisible ? "flex ease-in-out duration-300" : "hidden"
         } lg:hidden absolute w-[100%] top-0 left-0 z-30 pt-[24px] bg-white h-screen`}
       >
         <div className="container mx-auto px-8">
           <div
-            onClick={() => setShowMenu(false)}
+            onClick={() => setMenuVisibility(false)}
             className="mt-[16px] outline-none float-right ease-in-out duration-300 rounded"
           >
             <HiOutlineX className="text-[30px]" />
           </div>
           <div data-aos="fade-down" className="grid mt-[50px]">
             <div className="grid gap-5 text-lg">
-              <Menu mode="inline" items={navItemsGenerator(Routes)} />
+              <Menu
+                mode="inline"
+                items={navItems}
+                selectedKeys={[currentPath]}
+              />
             </div>
           </div>
         </div>

@@ -2,70 +2,71 @@ import React from "react";
 import {
   About,
   Cart,
+  Checkout,
   Home,
   ManageProduct,
   Products,
   SingleProduct,
 } from "../pages";
 
-export type TRoute = {
+export type AppRoute = {
   id: number;
   name: string;
   path: string;
   component: React.ReactNode;
-  nav: boolean;
-  children?: TRoute[];
+  isNavItem: boolean;
+  children?: AppRoute[];
 };
 
-export const Routes: TRoute[] = [
+export const appRoutes: AppRoute[] = [
   {
     id: 1,
     name: "Home",
     path: "/",
     component: <Home />,
-    nav: true,
+    isNavItem: true,
   },
   {
     id: 2,
     name: "About",
     path: "/about",
     component: <About />,
-    nav: true,
+    isNavItem: true,
   },
   {
     id: 3,
     name: "Products",
     path: "/products",
     component: <Products />,
-    nav: true,
+    isNavItem: true,
   },
   {
     id: 6,
     name: "Cart",
     path: "/cart",
     component: <Cart />,
-    nav: true,
+    isNavItem: true,
   },
   {
     id: 4,
     name: "Manage Product",
     path: "/manage-product",
     component: <ManageProduct />,
-    nav: true,
+    isNavItem: true,
     children: [
       {
         id: 4.1,
         name: "Products",
         path: "/manage-product/products",
         component: <Products />,
-        nav: false,
+        isNavItem: false,
       },
       {
         id: 4.2,
         name: "Create New Product",
         path: "/manage-product/create",
         component: <Products />,
-        nav: false,
+        isNavItem: false,
       },
     ],
   },
@@ -74,14 +75,13 @@ export const Routes: TRoute[] = [
     name: "Single Product",
     path: "/single-product",
     component: <SingleProduct />,
-    nav: false,
+    isNavItem: false,
   },
-
   {
     id: 7,
     name: "Checkout",
     path: "/checkout",
-    component: <Cart />,
-    nav: false,
+    component: <Checkout />,
+    isNavItem: false,
   },
 ];

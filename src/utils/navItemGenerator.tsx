@@ -1,27 +1,27 @@
 import React from "react";
-import { Routes, TRoute } from "../routes/routes";
 import { Link } from "react-router-dom";
+import { AppRoute } from "../routes/appRoutes";
 
-type TNavbar = {
+type NavItem = {
   label: React.ReactNode;
   key: string;
-  children?: TNavbar[];
+  children?: NavItem[];
 };
 
-export const navItemsGenerator = (paths: TRoute[]): TNavbar[] => {
-  return paths.reduce((acc: TNavbar[], item: TRoute) => {
-    if (item.nav && !item.children) {
+export const generateNavItems = (routes: AppRoute[]): NavItem[] => {
+  return routes.reduce((acc: NavItem[], route: AppRoute) => {
+    if (route.isNavItem && !route.children) {
       acc.push({
-        label: <Link to={item.path}>{item.name}</Link>,
-        key: item.path,
+        label: <Link to={route.path}>{route.name}</Link>,
+        key: route.path,
       });
     }
 
-    if (item.children && item.nav) {
+    if (route.children && route.isNavItem) {
       acc.push({
-        key: item.path,
-        label: <span>{item.name}</span>,
-        children: item.children.map((child) => ({
+        key: route.path,
+        label: <span>{route.name}</span>,
+        children: route.children.map((child) => ({
           key: child.path,
           label: <Link to={child.path}>{child.name}</Link>,
         })),
