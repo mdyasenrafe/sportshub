@@ -13,7 +13,8 @@ body {
 html {
   scroll-behavior: smooth;
 }
-.font-poppins {
+.font-poppins,
+label {
   font-family: "Poppins", sans-serif !important;
 }
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { MainLayout } from "../../components/atoms/layout/MainLayout";
 import { Button } from "antd";
-import { Category, FeatureProducts, HeroSection } from "./components";
+import { Category, Contact, FeatureProducts, HeroSection } from "./components";
 
 export const Home = () => {
   return (
@@ -9,6 +9,7 @@ export const Home = () => {
       <HeroSection />
       <FeatureProducts />
       <Category />
+      <Contact />
     </MainLayout>
   );
 };
