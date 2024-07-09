@@ -25,7 +25,7 @@ export const textVariants: Record<TextVariant, string> = {
   [TextVariant.P2]: "text-base font-normal text-gray-900 font-poppins",
   [TextVariant.P3]: "text-md font-normal text-gray-900 font-poppins",
   [TextVariant.P4]: "text-sm font-normal text-gray-800 font-poppins",
-  [TextVariant.P5]: "text-xs font-light text-gray-700 font-poppins",
-  [TextVariant.P6]: "text-xs font-light text-gray-600 font-poppins",
+  [TextVariant.P5]: "text-xs text-gray-700 font-poppins",
+  [TextVariant.P6]: "text-xs text-gray-600 font-poppins",
   [TextVariant.Body]: "text-base font-normal text-gray-900 font-poppins",
 };
