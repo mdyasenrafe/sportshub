@@ -71,7 +71,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               {truncateText(product.description, 30)}
             </Text>
             <Text variant={TextVariant.H4} className="font-bold my-1">
-              {product.price}
+              ${product.price}
             </Text>
             {editOption ? (
               <div className="flex space-x-2 mt-3">

@@ -2,11 +2,16 @@ import { MainLayout } from "../../../components/atoms/layout/MainLayout";
 import { Container } from "../../../components/atoms";
 import { SubmitHandler } from "react-hook-form";
 import { useImageUploadMutation } from "../../../api/uploadApi";
-import { useGetProductsByIdQuery } from "../../../redux/features/ProductApi";
+import {
+  useGetProductsByIdQuery,
+  useGetProductsQuery,
+  useUpdateProductMutation,
+} from "../../../redux/features/ProductApi";
 import { useNavigate, useParams } from "react-router-dom";
 import { TProduct } from "../../../types/productTypes";
 import { ProductForm } from "../components/ProductForm";
 import { Flex, Spin } from "antd";
+import { toast } from "sonner";
 
 export const EditProduct = () => {
   const [imageUpload, { isLoading: imageLoading }] = useImageUploadMutation();
@@ -14,6 +19,7 @@ export const EditProduct = () => {
   const { data: ProductData, isLoading } = useGetProductsByIdQuery(
     productId as string
   );
+  const [editProduct, { isLoading: editLoading }] = useUpdateProductMutation();
 
   const navigate = useNavigate();
 
@@ -49,8 +55,9 @@ export const EditProduct = () => {
       } else {
         data.coverPictures = initialProductValues.coverPictures;
       }
-      // const res = addProduct(data);
-      // toast.success("Product created succesfully");
+      data._id = initialProductValues._id;
+      const res = await editProduct(data);
+      toast.success("Product updated succesfully");
       navigate("/manage-product/products");
     } catch (err) {
       console.error("Error uploading images: ", err);

@@ -47,7 +47,7 @@ export const CreateProduct = () => {
         data.coverPictures = coverPictureUrls;
       }
 
-      const res = addProduct(data);
+      const res = await addProduct(data);
       toast.success("Product created succesfully");
       navigate("/manage-product/products");
     } catch (err) {

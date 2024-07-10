@@ -20,7 +20,6 @@ export const FormUpload: React.FC<TFormUploadProps> = React.forwardRef(
   ) => {
     const { control, setValue } = useFormContext();
 
-    console.log(useFormContext().getValues());
     useEffect(() => {
       if (defaultValue?.length !== 0 && defaultValue !== "") {
         if (
