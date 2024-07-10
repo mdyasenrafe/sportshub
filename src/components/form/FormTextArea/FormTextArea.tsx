@@ -19,7 +19,7 @@ export const FormTextArea: React.FC<TFormTextAreaProps> = ({ name, label }) => {
               {...field}
               id={name}
               size="large"
-              maxLength={500}
+              maxLength={2000}
               autoSize={{ minRows: 7, maxRows: 7 }}
               className="font-poppins text-[14px]"
             />

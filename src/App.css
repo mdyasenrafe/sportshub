@@ -40,3 +40,7 @@ label {
 .swiper-button-next {
   display: none !important;
 }
+
+.ant-select-selection-item {
+  font-size: 14px !important;
+}

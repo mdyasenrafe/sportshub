@@ -21,7 +21,7 @@ export const FormSelect: React.FC<TFormSelectProps> = ({
         return (
           <Form.Item label={label}>
             <Select
-              style={{ width: "100%", borderColor: "red" }}
+              style={{ width: "100%", fontSize: 14 }}
               {...field}
               options={options}
               size="large"

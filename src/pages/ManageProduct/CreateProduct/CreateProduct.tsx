@@ -30,13 +30,34 @@ type TFormValues = {
 export const CreateProduct = () => {
   const [imageUpload, { isLoading: imageLoading }] = useImageUploadMutation();
 
-  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+  const onSubmit: SubmitHandler<any> = async (data: TFormValues) => {
     try {
-      const res = await imageUpload({
-        url: data.thumb,
-      }).unwrap();
+      // Handle thumb image upload
+      if (data.thumb) {
+        const thumbRes = await imageUpload({ url: data.thumb }).unwrap();
+        console.log(thumbRes);
+        data.thumb = thumbRes?.data?.url;
+      }
+
+      // Handle cover pictures upload
+      if (data.coverPictures && data.coverPictures.length > 0) {
+        const uploadPromises = data.coverPictures.map((base64Image) =>
+          imageUpload({ url: base64Image }).unwrap()
+        );
+
+        const coverPictureResults = await Promise.all(uploadPromises);
+        const coverPictureUrls = coverPictureResults.map(
+          (res) => res?.data?.url
+        );
+
+        data.coverPictures = coverPictureUrls;
+      }
+
+      console.log(data);
+
+      // Perform further actions like form submission to server here
     } catch (err) {
-      console.log(err);
+      console.error("Error uploading images: ", err);
     }
   };
   return (
@@ -72,6 +93,8 @@ export const CreateProduct = () => {
             colorKey="primary"
             htmlType="submit"
             className="w-full h-[48px] text-[18px] text-white"
+            loading={imageLoading}
+            disabled={imageLoading}
           >
             Submit
           </CustomButton>
