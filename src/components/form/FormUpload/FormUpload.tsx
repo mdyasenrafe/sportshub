@@ -22,35 +22,37 @@ export const FormUpload: React.FC<TFormUploadProps> = ({
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
 
-  const handleFileChange = (info: any) => {
-    const files = info.fileList.map((file: any) => {
-      if (file.originFileObj) {
-        return URL.createObjectURL(file.originFileObj); // Creating a blob URL for preview
-      }
-      return file.url || file.thumbUrl;
-    });
-
+  const handleFileChange = async (info: any) => {
+    const files = await Promise.all(
+      info.fileList.map(async (file: any) => {
+        if (file.originFileObj) {
+          const base64 = await getBase64(file.originFileObj); // Convert to base64 for form storage
+          file.base64 = base64; // Store base64 in the file object for form submission
+          file.preview = URL.createObjectURL(file.originFileObj); // Create object URL for preview
+        }
+        return file.base64;
+      })
+    );
     setValue(name, multiple ? files : files[0], { shouldValidate: true });
   };
-
-  //     const handleFileChange = (info: any) => {
-  //     const files = info.fileList.map((file: any) => {
-  //       if (file.originFileObj && !file.url && !file.preview) {
-  //         // Create object URL only if there's no existing URL or preview
-  //         file.preview = URL.createObjectURL(file.originFileObj);
-  //       }
-  //       return file;
-  //     });
-
-  //     setValue(name, multiple ? files : files[0], { shouldValidate: true });
-  //   };
+  // Convert file to Base64
+  const getBase64 = (file: Blob) =>
+    new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const result = reader.result as string;
+        const base64Data = result.split(",")[1]; // Split the result and get the Base64 data
+        resolve(base64Data); // Return only the Base64 data, excluding the prefix
+      };
+      reader.onerror = (error) => reject(error);
+    });
 
   const isThumb = name === "thumb"; // Determine if this instance is for 'thumb'
 
   const handlePreview = async (file: any) => {
     if (!file.url && !file.preview) {
-      // Assuming file.originFileObj exists
-      file.preview = URL.createObjectURL(file.originFileObj);
+      file.preview = await getBase64(file.originFileObj as any);
     }
     window.open(file.url || file.preview, "_blank");
   };

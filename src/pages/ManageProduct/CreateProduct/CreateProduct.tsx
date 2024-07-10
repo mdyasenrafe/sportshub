@@ -14,11 +14,32 @@ import { CATEGORIES_DATA_ARRAY } from "../../../constant/CategoriesData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createProductSchema } from "../../../Schema/Schema";
 import { Upload } from "antd";
+import { useImageUploadMutation } from "../../../api/uploadApi";
+
+type TFormValues = {
+  productName: string;
+  description: string;
+  category: string;
+  stockQuantity: string;
+  rating: string;
+  price: string;
+  thumb: string;
+  coverPictures: string[];
+};
 
 export const CreateProduct = () => {
-  console.log(useFormContext());
+  const [imageUpload, { isLoading: imageLoading }] = useImageUploadMutation();
+
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log("data", data);
+    console.log("data.thumb", data.thumb);
+    try {
+      const res = await imageUpload({
+        url: data.thumb,
+      }).unwrap();
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <MainLayout>
@@ -35,9 +56,13 @@ export const CreateProduct = () => {
             options={CATEGORIES_DATA_ARRAY}
           />
           <FormSelect name="brand" label="Brand" options={BRAND_DATA} />
-          <FormInput type="text" name="stockQuantity" label="Stock Quantity" />
-          <FormInput type="text" name="rating" label="Rating (0-5)" />
-          <FormInput type="text" name="price" label="price" />
+          <FormInput
+            type="number"
+            name="stockQuantity"
+            label="Stock Quantity"
+          />
+          <FormInput type="number" name="rating" label="Rating (0-5)" />
+          <FormInput type="number" name="price" label="price" />
           <FormUpload name="thumb" label="Upload Profile Image" />
           <FormUpload
             name="coverPictures"

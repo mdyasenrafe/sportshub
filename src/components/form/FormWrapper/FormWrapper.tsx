@@ -28,7 +28,6 @@ export const FormWrapper: React.FC<TFormProps> = ({
   }
 
   const methods = useForm(formConfig);
-  console.log(methods.getValues());
   return (
     <FormProvider {...methods}>
       <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>

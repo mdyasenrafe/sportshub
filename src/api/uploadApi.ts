@@ -4,7 +4,7 @@ const uploadApi = BaseApi.injectEndpoints({
   endpoints: (builder) => ({
     imageUpload: builder.mutation({
       query: (payload) => ({
-        url: "/upload/image",
+        url: "upload/image/",
         method: "POST",
         body: payload,
       }),
