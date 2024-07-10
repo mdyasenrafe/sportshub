@@ -27,9 +27,7 @@ export const FormInput: React.FC<TFormInputProps> = ({ type, name, label }) => {
               type={type}
               id={name}
               size="large"
-              className={`font-poppins text-[14px] ${
-                error && "border-red-500"
-              }`}
+              className={`font-poppins text-[14px]`}
             />
             {error && (
               <Text

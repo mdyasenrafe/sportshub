@@ -5,17 +5,20 @@ import {
   FormSelect,
   FormWrapper,
   FormTextArea,
+  FormUpload,
 } from "../../../components/form";
 import { Container, CustomButton } from "../../../components/atoms";
-import { FieldValues, SubmitHandler } from "react-hook-form";
+import { FieldValues, SubmitHandler, useFormContext } from "react-hook-form";
 import { BRAND_DATA } from "../../../constant/BrandData";
 import { CATEGORIES_DATA_ARRAY } from "../../../constant/CategoriesData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createProductSchema } from "../../../Schema/Schema";
+import { Upload } from "antd";
 
 export const CreateProduct = () => {
+  console.log(useFormContext());
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log(data);
+    console.log("data", data);
   };
   return (
     <MainLayout>
@@ -32,18 +35,11 @@ export const CreateProduct = () => {
             options={CATEGORIES_DATA_ARRAY}
           />
           <FormSelect name="brand" label="Brand" options={BRAND_DATA} />
-          <FormInput
-            type="number"
-            name="stockQuantity"
-            label="Stock Quantity"
-          />
-          <FormInput type="number" name="rating" label="Rating (0-5)" />
-          <FormInput type="text" name="price" label="Price" />
-          <FormInput
-            type="text"
-            name="images"
-            label="Image URLs (comma-separated)"
-          />
+          <FormInput type="text" name="stockQuantity" label="Stock Quantity" />
+          <FormInput type="text" name="rating" label="Rating (0-5)" />
+          <FormInput type="text" name="price" label="price" />
+          <FormUpload name="thumb" />
+
           <CustomButton
             colorKey="primary"
             htmlType="submit"

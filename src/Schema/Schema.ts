@@ -12,17 +12,12 @@ export const createProductSchema = z.object({
   category: z.string().min(1, { message: "Category is required" }),
   brand: z.string().min(1, { message: "Brand is required" }),
   stockQuantity: z
-    .number()
-    .min(0, { message: "Stock quantity cannot be negative" })
+    .string()
+    .min(1, { message: "Stock is required" })
     .max(10000, { message: "Stock quantity must be reasonable" }),
-  rating: z
-    .number()
-    .min(0, { message: "Rating must be at least 0" })
-    .max(5, { message: "Rating must not exceed 5" }),
+  rating: z.string().min(1, { message: "Rating is required" }),
   price: z
     .string()
     .regex(/^\d+(\.\d{1,2})?$/, { message: "Enter a valid price" }),
-  images: z
-    .array(z.string())
-    .min(1, { message: "At least one image is required" }),
+  thumb: z.any(),
 });
