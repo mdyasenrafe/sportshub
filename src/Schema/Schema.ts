@@ -20,6 +20,6 @@ export const createProductSchema = z.object({
   price: z
     .string()
     .regex(/^\d+(\.\d{1,2})?$/, { message: "Enter a valid price" }),
-  thumb: z.string().min(1, { message: "thumb  is required" }),
+  thumb: z.string(),
   coverPictures: z.array(z.string()),
 });

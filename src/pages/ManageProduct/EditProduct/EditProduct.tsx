@@ -1,17 +1,9 @@
 import { MainLayout } from "../../../components/atoms/layout/MainLayout";
-import { Container, CustomButton } from "../../../components/atoms";
-import { FieldValues, SubmitHandler, useFormContext } from "react-hook-form";
-import { BRAND_DATA } from "../../../constant/BrandData";
-import { CATEGORIES_DATA_ARRAY } from "../../../constant/CategoriesData";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createProductSchema } from "../../../Schema/Schema";
+import { Container } from "../../../components/atoms";
+import { SubmitHandler } from "react-hook-form";
 import { useImageUploadMutation } from "../../../api/uploadApi";
-import {
-  useCreateProductMutation,
-  useGetProductsByIdQuery,
-} from "../../../redux/features/ProductApi";
-import { toast } from "sonner";
-import { useFormAction, useNavigate, useParams } from "react-router-dom";
+import { useGetProductsByIdQuery } from "../../../redux/features/ProductApi";
+import { useNavigate, useParams } from "react-router-dom";
 import { TProduct } from "../../../types/productTypes";
 import { ProductForm } from "../components/ProductForm";
 import { Flex, Spin } from "antd";
@@ -19,35 +11,50 @@ import { Flex, Spin } from "antd";
 export const EditProduct = () => {
   const [imageUpload, { isLoading: imageLoading }] = useImageUploadMutation();
   let { productId } = useParams();
-  const { data, isLoading } = useGetProductsByIdQuery(productId as string);
+  const { data: ProductData, isLoading } = useGetProductsByIdQuery(
+    productId as string
+  );
 
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<any> = async (data: TProduct) => {
-    // try {
-    //   // Handle thumb image upload
-    //   if (data.thumb) {
-    //     const thumbRes = await imageUpload({ url: data.thumb }).unwrap();
-    //     console.log(thumbRes);
-    //     data.thumb = thumbRes?.data?.url;
-    //   }
-    //   // Handle cover pictures upload
-    //   if (data.coverPictures && data.coverPictures.length > 0) {
-    //     const uploadPromises = data.coverPictures.map((base64Image) =>
-    //       imageUpload({ url: base64Image }).unwrap()
-    //     );
-    //     const coverPictureResults = await Promise.all(uploadPromises);
-    //     const coverPictureUrls = coverPictureResults.map(
-    //       (res) => res?.data?.url
-    //     );
-    //     data.coverPictures = coverPictureUrls;
-    //   }
-    //   const res = addProduct(data);
-    //   toast.success("Product created succesfully");
-    //   navigate("/manage-product/products");
-    // } catch (err) {
-    //   console.error("Error uploading images: ", err);
-    // }
+    try {
+      const initialProductValues = ProductData?.data as TProduct;
+      if (data.thumb !== initialProductValues?.thumb) {
+        const thumbRes = await imageUpload({ url: data.thumb }).unwrap();
+        console.log(thumbRes);
+        data.thumb = thumbRes?.data?.url;
+      } else {
+        data.thumb = initialProductValues?.thumb;
+      }
+
+      // Check if cover pictures have changed
+      if (data.coverPictures && data.coverPictures.length > 0) {
+        const coverPictureUrls = [...initialProductValues.coverPictures];
+
+        const uploadPromises = data.coverPictures.map(
+          async (base64Image, index) => {
+            if (
+              index >= coverPictureUrls.length ||
+              base64Image !== coverPictureUrls[index]
+            ) {
+              const res = await imageUpload({ url: base64Image }).unwrap();
+              coverPictureUrls[index] = res?.data?.url;
+            }
+          }
+        );
+
+        await Promise.all(uploadPromises);
+        data.coverPictures = coverPictureUrls;
+      } else {
+        data.coverPictures = initialProductValues.coverPictures;
+      }
+      // const res = addProduct(data);
+      // toast.success("Product created succesfully");
+      navigate("/manage-product/products");
+    } catch (err) {
+      console.error("Error uploading images: ", err);
+    }
   };
   return (
     <MainLayout>
@@ -65,7 +72,7 @@ export const EditProduct = () => {
           </div>
         ) : (
           <ProductForm
-            initialProductValues={data?.data as TProduct}
+            initialProductValues={ProductData?.data as TProduct}
             onSubmit={onSubmit}
             isLoading={false}
           />

@@ -18,12 +18,12 @@ export const FormUpload: React.FC<TFormUploadProps> = ({
   label = "Upload",
   multiple = false,
   uploadProps,
-  defaultValue = [],
+  defaultValue,
 }) => {
   const { control, setValue } = useFormContext();
 
   useEffect(() => {
-    if (defaultValue) {
+    if (defaultValue?.length !== 0 && defaultValue !== "") {
       setValue(name, defaultValue);
     }
   }, [setValue, name, defaultValue]);
@@ -86,7 +86,7 @@ export const FormUpload: React.FC<TFormUploadProps> = ({
             help={
               error && (
                 <Text variant={TextVariant.P6} style={{ color: "red" }}>
-                  {error.message}
+                  Required
                 </Text>
               )
             }
