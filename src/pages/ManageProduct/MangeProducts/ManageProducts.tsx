@@ -34,7 +34,7 @@ export const ManageProducts = () => {
                   effectively.
                 </Text>
               </div>
-              {!isLoading ? (
+              {isLoading ? (
                 <div>
                   <Flex
                     align="center"

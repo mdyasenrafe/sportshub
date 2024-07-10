@@ -19,8 +19,6 @@ export const FormUpload: React.FC<TFormUploadProps> = ({
   uploadProps,
 }) => {
   const { control, setValue } = useFormContext();
-  const [previewVisible, setPreviewVisible] = useState(false);
-  const [previewImage, setPreviewImage] = useState("");
 
   const handleFileChange = async (info: any) => {
     const files = await Promise.all(

@@ -1,4 +1,3 @@
-import React from "react";
 import { MainLayout } from "../../../components/atoms/layout/MainLayout";
 import {
   FormInput,
@@ -13,8 +12,10 @@ import { BRAND_DATA } from "../../../constant/BrandData";
 import { CATEGORIES_DATA_ARRAY } from "../../../constant/CategoriesData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createProductSchema } from "../../../Schema/Schema";
-import { Upload } from "antd";
 import { useImageUploadMutation } from "../../../api/uploadApi";
+import { useCreateProductMutation } from "../../../redux/features/ProductApi";
+import { toast } from "sonner";
+import { useFormAction, useNavigate } from "react-router-dom";
 
 type TFormValues = {
   productName: string;
@@ -29,6 +30,8 @@ type TFormValues = {
 
 export const CreateProduct = () => {
   const [imageUpload, { isLoading: imageLoading }] = useImageUploadMutation();
+  const [addProduct, { isLoading }] = useCreateProductMutation();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<any> = async (data: TFormValues) => {
     try {
@@ -53,9 +56,9 @@ export const CreateProduct = () => {
         data.coverPictures = coverPictureUrls;
       }
 
-      console.log(data);
-
-      // Perform further actions like form submission to server here
+      const res = addProduct(data);
+      toast.success("Product created succesfully");
+      navigate("/manage-product/products");
     } catch (err) {
       console.error("Error uploading images: ", err);
     }
@@ -93,8 +96,8 @@ export const CreateProduct = () => {
             colorKey="primary"
             htmlType="submit"
             className="w-full h-[48px] text-[18px] text-white"
-            loading={imageLoading}
-            disabled={imageLoading}
+            loading={imageLoading || isLoading}
+            disabled={imageLoading || isLoading}
           >
             Submit
           </CustomButton>
