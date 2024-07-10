@@ -43,7 +43,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         <img
           alt={product.productName}
           src={product.thumb}
-          className="h-full object-contain"
+          className="h-48 object-cover w-full"
         />
       }
       className="border rounded-lg shadow-lg flex flex-col"

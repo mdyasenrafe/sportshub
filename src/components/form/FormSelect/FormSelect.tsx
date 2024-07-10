@@ -1,6 +1,6 @@
-import { Form, Select } from "antd";
 import React from "react";
-import { Controller } from "react-hook-form";
+import { Select, Form } from "antd";
+import { Controller, useFormContext } from "react-hook-form";
 import { Text, TextVariant } from "../../atoms";
 
 type TFormSelectProps = {
@@ -9,35 +9,38 @@ type TFormSelectProps = {
   options: { value: string; label: string; disabled?: boolean }[];
 };
 
-export const FormSelect: React.FC<TFormSelectProps> = ({
-  name,
-  label,
-  options,
-}) => {
-  return (
-    <Controller
-      name={name}
-      render={({ field, fieldState: { error } }) => {
-        return (
-          <Form.Item label={label}>
-            <Select
-              style={{ width: "100%", fontSize: 14 }}
-              {...field}
-              options={options}
-              size="large"
-              allowClear
-              className={`font-poppins text-[14px] ${
-                error && "border-red-500"
-              }`}
-            />
-            {error && (
-              <Text variant={TextVariant.P6} style={{ color: "red" }}>
-                {error.message}
-              </Text>
-            )}
-          </Form.Item>
-        );
-      }}
-    />
-  );
-};
+export const FormSelect: React.FC<TFormSelectProps> = React.forwardRef(
+  ({ name, label, options }, ref) => {
+    const { control } = useFormContext();
+    return (
+      <Controller
+        name={name}
+        control={control}
+        render={({ field, fieldState: { error } }) => {
+          return (
+            <Form.Item label={label}>
+              <Select
+                style={{ width: "100%", fontSize: 14 }}
+                {...field}
+                ref={ref as any}
+                options={options}
+                size="large"
+                allowClear
+                className={`font-poppins text-[14px] ${
+                  error && "border-red-500"
+                }`}
+              />
+              {error && (
+                <Text variant={TextVariant.P6} style={{ color: "red" }}>
+                  {error.message}
+                </Text>
+              )}
+            </Form.Item>
+          );
+        }}
+      />
+    );
+  }
+);
+
+FormSelect.displayName = "FormSelect";
