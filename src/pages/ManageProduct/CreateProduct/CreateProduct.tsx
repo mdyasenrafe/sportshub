@@ -17,6 +17,7 @@ import { useCreateProductMutation } from "../../../redux/features/ProductApi";
 import { toast } from "sonner";
 import { useFormAction, useNavigate } from "react-router-dom";
 import { TProduct } from "../../../types/productTypes";
+import { ProductForm } from "../components/ProductForm";
 
 export const CreateProduct = () => {
   const [imageUpload, { isLoading: imageLoading }] = useImageUploadMutation();
@@ -56,43 +57,11 @@ export const CreateProduct = () => {
   return (
     <MainLayout>
       <Container>
-        <FormWrapper
+        <ProductForm
+          initialProductValues={{}}
           onSubmit={onSubmit}
-          resolver={zodResolver(createProductSchema)}
-          defaultValues={{}}
-        >
-          <FormInput type="text" name="productName" label="Product Name" />
-          <FormTextArea name="description" label="Description" />
-          <FormSelect
-            name="category"
-            label="Category"
-            options={CATEGORIES_DATA_ARRAY}
-          />
-          <FormSelect name="brand" label="Brand" options={BRAND_DATA} />
-          <FormInput
-            type="number"
-            name="stockQuantity"
-            label="Stock Quantity"
-          />
-          <FormInput type="number" name="rating" label="Rating (0-5)" />
-          <FormInput type="number" name="price" label="price" />
-          <FormUpload name="thumb" label="Upload Profile Image" />
-          <FormUpload
-            name="coverPictures"
-            multiple={true}
-            label="Cover Pictures"
-          />
-
-          <CustomButton
-            colorKey="primary"
-            htmlType="submit"
-            className="w-full h-[48px] text-[18px] text-white"
-            loading={imageLoading || isLoading}
-            disabled={imageLoading || isLoading}
-          >
-            Submit
-          </CustomButton>
-        </FormWrapper>
+          isLoading={isLoading || imageLoading}
+        />
       </Container>
     </MainLayout>
   );

@@ -18,7 +18,7 @@ export const FormUpload: React.FC<TFormUploadProps> = ({
   label = "Upload",
   multiple = false,
   uploadProps,
-  defaultValue,
+  defaultValue = [],
 }) => {
   const { control, setValue } = useFormContext();
 
@@ -29,13 +29,13 @@ export const FormUpload: React.FC<TFormUploadProps> = ({
   }, [setValue, name, defaultValue]);
 
   const generateDefaultFileList = (urls: string | string[]) => {
-    if (!urls) return [];
+    if (!urls || urls == "") return [];
 
     const fileList = Array.isArray(urls) ? urls : [urls];
     return fileList.map((url, index) => ({
       uid: index.toString(),
-      name: url.split("/").pop() || "image",
-      status: "done" as const, // Ensure this is a constant type of 'done'
+      name: url?.split("/").pop() || "image",
+      status: "done" as const,
       url,
     }));
   };
