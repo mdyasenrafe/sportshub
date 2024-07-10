@@ -3,7 +3,7 @@ import { MainLayout } from "../../../components/atoms/layout/MainLayout";
 import { Container, Text, TextVariant } from "../../../components/atoms";
 import { TProduct } from "../../../types/productTypes";
 import { colors } from "../../../theme/color";
-import { Col, Row } from "antd";
+import { Col, Flex, Row, Spin } from "antd";
 import { ProductCard } from "../../../components";
 import { useGetProductsQuery } from "../../../redux/features/ProductApi";
 import { useAppSelector } from "../../../redux/hooks";
@@ -34,13 +34,26 @@ export const ManageProducts = () => {
                   effectively.
                 </Text>
               </div>
-              <Row justify="center" gutter={[16, 16]}>
-                {featuredProducts.map((product, index) => (
-                  <Col key={index} xs={24} sm={12} md={8} lg={6}>
-                    <ProductCard product={product} />
-                  </Col>
-                ))}
-              </Row>
+              {!isLoading ? (
+                <div>
+                  <Flex
+                    align="center"
+                    gap="middle"
+                    justify="center"
+                    className="h-[200px]"
+                  >
+                    <Spin size="large" />
+                  </Flex>
+                </div>
+              ) : (
+                <Row justify="center" gutter={[16, 16]}>
+                  {featuredProducts.map((product, index) => (
+                    <Col key={index} xs={24} sm={12} md={8} lg={6}>
+                      <ProductCard product={product} />
+                    </Col>
+                  ))}
+                </Row>
+              )}
             </div>
           </Container>
         </section>
