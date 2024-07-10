@@ -1,6 +1,10 @@
 import React from "react";
 import { About, Cart, Checkout, Home, Products, SingleProduct } from "../pages";
-import { CreateProduct, ManageProducts } from "../pages/manageProduct";
+import {
+  CreateProduct,
+  ManageProducts,
+  EditProduct,
+} from "../pages/manageProduct";
 
 export type AppRoute = {
   id: number;
@@ -74,6 +78,13 @@ export const appRoutes: AppRoute[] = [
     name: "Checkout",
     path: "/checkout",
     component: <Checkout />,
+    isNavItem: false,
+  },
+  {
+    id: 8,
+    name: "Edit Product",
+    path: "manage-product/edit/:productId",
+    component: <EditProduct />,
     isNavItem: false,
   },
 ];

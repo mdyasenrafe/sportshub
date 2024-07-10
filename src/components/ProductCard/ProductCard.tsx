@@ -5,6 +5,7 @@ import { truncateText } from "../../utils/truncateText";
 import { CustomButton, Text, TextVariant } from "../atoms";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { colors } from "../../theme/color";
+import { useNavigate } from "react-router";
 
 interface ProductCardProps {
   product: TProduct;
@@ -16,8 +17,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   editOption,
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const onEdit = () => {};
+  const navigate = useNavigate();
+  const onEdit = (id: string) => {
+    navigate(`/manage-product/edit/${id}`);
+  };
   const onDelete = (id: string) => {};
   const showModal = () => {
     setIsModalVisible(true);
@@ -76,7 +79,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                   colorKey="primary"
                   htmlType="button"
                   className="h-[30px] text-[18px] text-white"
-                  onClick={onEdit}
+                  onClick={() => onEdit(product._id)}
                 >
                   Edit
                 </CustomButton>
