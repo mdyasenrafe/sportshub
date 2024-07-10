@@ -16,7 +16,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       cover={
         <img
           alt={product.productName}
-          src={product.image}
+          src={product.thumb}
           className="h-48 object-contain"
         />
       }
@@ -38,7 +38,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             <Rate
               allowHalf
               disabled
-              defaultValue={product.rating}
+              defaultValue={Number(product.rating)}
               className="my-2"
             />
             <Text variant={TextVariant.P4} className="text-gray-600 my-1">

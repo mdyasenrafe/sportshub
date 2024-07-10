@@ -1,10 +1,12 @@
 export interface TProduct {
+  _id: string;
   productName: string;
+  description: string;
   category: string;
   brand: string;
-  stockQuantity: number;
-  rating: number;
-  description: string;
+  stockQuantity: string;
+  rating: string;
   price: string;
-  image: string;
+  thumb: string;
+  coverPictures: string[];
 }

@@ -31,12 +31,10 @@ export const CreateProduct = () => {
   const [imageUpload, { isLoading: imageLoading }] = useImageUploadMutation();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    console.log("data.thumb", data.thumb);
     try {
       const res = await imageUpload({
         url: data.thumb,
       }).unwrap();
-      console.log(data);
     } catch (err) {
       console.log(err);
     }
