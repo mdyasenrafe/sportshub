@@ -1,6 +1,6 @@
 import { BaseApi } from "../../api/BaseApi";
 import { TProduct } from "../../types/productTypes";
-import { setProducts, updateProduct } from "./ProductSlice";
+import { deleteProduct, setProducts, updateProduct } from "./ProductSlice";
 import { ProductResponse, ProductsResponse } from "./types";
 
 const ProductApi = BaseApi.injectEndpoints({
@@ -40,6 +40,18 @@ const ProductApi = BaseApi.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
           dispatch(updateProduct(data.data));
+        } catch (err) {}
+      },
+    }),
+    deleteProduct: builder.query<ProductResponse, string>({
+      query: (productId) => ({
+        url: `/products/${productId}`,
+        method: "DELETE",
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(deleteProduct(data.data._id));
         } catch (err) {}
       },
     }),

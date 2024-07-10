@@ -20,10 +20,13 @@ export const productsSlice = createSlice({
       );
     },
     updateProduct: (state, action: PayloadAction<TProduct>) => {
-      let product = state.products.find(
-        (product) => product._id === action.payload._id
+      const updatedProduct = action.payload;
+      const existingProductIndex = state.products.findIndex(
+        (p) => p._id === updatedProduct._id
       );
-      product = action.payload;
+      if (existingProductIndex !== -1) {
+        state.products[existingProductIndex] = updatedProduct;
+      }
     },
     setProducts: (state, action: PayloadAction<TProduct[]>) => {
       state.products = action.payload;
