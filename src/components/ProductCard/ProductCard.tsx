@@ -3,9 +3,10 @@ import { Button, Card, Modal, Rate } from "antd";
 import { TProduct } from "../../types/productTypes";
 import { truncateText } from "../../utils/truncateText";
 import { CustomButton, Text, TextVariant } from "../atoms";
-import { FaEdit, FaTrash } from "react-icons/fa";
-import { colors } from "../../theme/color";
 import { useNavigate } from "react-router";
+import { useDeleteProductMutation } from "../../redux/features/ProductApi";
+import { toast } from "sonner";
+import { async } from "q";
 
 interface ProductCardProps {
   product: TProduct;
@@ -18,10 +19,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const navigate = useNavigate();
+  // apis
+  const [deleteProduct, { data, isLoading }] = useDeleteProductMutation();
   const onEdit = (id: string) => {
     navigate(`/manage-product/edit/${id}`);
   };
-  const onDelete = (id: string) => {};
+  const onDelete = async (id: string) => {
+    try {
+      const res = await deleteProduct(id);
+      toast.success("Product deleted succesfully");
+    } catch (err: any) {
+      toast.error(err.message || "Something went wrong");
+    }
+  };
   const showModal = () => {
     setIsModalVisible(true);
   };
