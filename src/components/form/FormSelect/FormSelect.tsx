@@ -18,15 +18,17 @@ export const FormSelect: React.FC<TFormSelectProps> = ({
     <Controller
       name={name}
       render={({ field, fieldState: { error } }) => {
-        console.log(error);
         return (
           <Form.Item label={label}>
             <Select
-              style={{ width: "100%" }}
+              style={{ width: "100%", borderColor: "red" }}
               {...field}
               options={options}
               size="large"
               allowClear
+              className={`font-poppins text-[14px] ${
+                error && "border-red-500"
+              }`}
             />
             {error && (
               <Text variant={TextVariant.P6} style={{ color: "red" }}>
