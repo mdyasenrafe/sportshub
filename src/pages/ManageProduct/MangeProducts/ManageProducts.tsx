@@ -5,10 +5,15 @@ import { TProduct } from "../../../types/productTypes";
 import { colors } from "../../../theme/color";
 import { Col, Row } from "antd";
 import { ProductCard } from "../../../components";
-
-const featuredProducts: TProduct[] = [];
+import { useGetProductsQuery } from "../../../redux/features/ProductApi";
+import { useAppSelector } from "../../../redux/hooks";
+import { getProducts } from "../../../redux/features/ProductSlice";
 
 export const ManageProducts = () => {
+  const { data, isLoading } = useGetProductsQuery();
+
+  const featuredProducts = useAppSelector(getProducts);
+
   return (
     <MainLayout>
       <Container>
