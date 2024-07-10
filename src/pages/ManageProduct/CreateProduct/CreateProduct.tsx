@@ -38,7 +38,12 @@ export const CreateProduct = () => {
           <FormInput type="text" name="stockQuantity" label="Stock Quantity" />
           <FormInput type="text" name="rating" label="Rating (0-5)" />
           <FormInput type="text" name="price" label="price" />
-          <FormUpload name="thumb" />
+          <FormUpload name="thumb" label="Upload Profile Image" />
+          <FormUpload
+            name="coverPictures"
+            multiple={true}
+            label="Cover Pictures"
+          />
 
           <CustomButton
             colorKey="primary"

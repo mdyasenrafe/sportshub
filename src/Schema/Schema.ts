@@ -13,11 +13,22 @@ export const createProductSchema = z.object({
   brand: z.string().min(1, { message: "Brand is required" }),
   stockQuantity: z
     .string()
-    .min(1, { message: "Stock is required" })
-    .max(10000, { message: "Stock quantity must be reasonable" }),
-  rating: z.string().min(1, { message: "Rating is required" }),
+    .regex(/^\d+$/, { message: "Stock quantity must be a valid number" }),
+  rating: z
+    .string()
+    .regex(/^[0-5](\.[0-9]+)?$/, {
+      message: "Rating must be a number between 0 and 5",
+    }),
   price: z
     .string()
     .regex(/^\d+(\.\d{1,2})?$/, { message: "Enter a valid price" }),
-  thumb: z.any(),
+  thumb: z
+    .string()
+    .url({ message: "Thumbnail must be a valid URL" })
+    .optional(),
+  coverPictures: z
+    .array(
+      z.string().url({ message: "Each cover picture must be a valid URL" })
+    )
+    .optional(),
 });
