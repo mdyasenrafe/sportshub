@@ -8,26 +8,34 @@ import {
 } from "react-hook-form";
 
 type TFormConfig = {
+  defaultValues?: Record<string, any>;
   resolver?: any;
 };
-
 type TFormProps = {
   onSubmit: SubmitHandler<FieldValues>;
   children: React.ReactNode;
   resolver?: any;
+  defaultValues?: Record<string, any>;
 };
 
 export const FormWrapper: React.FC<TFormProps> = ({
   onSubmit,
   children,
+  defaultValues,
   resolver,
 }) => {
   const formConfig: TFormConfig = {};
+
+  if (defaultValues) {
+    formConfig["defaultValues"] = defaultValues;
+  }
+
   if (resolver) {
     formConfig["resolver"] = resolver;
   }
 
   const methods = useForm(formConfig);
+
   return (
     <FormProvider {...methods}>
       <Form layout="vertical" onFinish={methods.handleSubmit(onSubmit)}>

@@ -16,24 +16,14 @@ import { useImageUploadMutation } from "../../../api/uploadApi";
 import { useCreateProductMutation } from "../../../redux/features/ProductApi";
 import { toast } from "sonner";
 import { useFormAction, useNavigate } from "react-router-dom";
-
-type TFormValues = {
-  productName: string;
-  description: string;
-  category: string;
-  stockQuantity: string;
-  rating: string;
-  price: string;
-  thumb: string;
-  coverPictures: string[];
-};
+import { TProduct } from "../../../types/productTypes";
 
 export const CreateProduct = () => {
   const [imageUpload, { isLoading: imageLoading }] = useImageUploadMutation();
   const [addProduct, { isLoading }] = useCreateProductMutation();
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<any> = async (data: TFormValues) => {
+  const onSubmit: SubmitHandler<any> = async (data: TProduct) => {
     try {
       // Handle thumb image upload
       if (data.thumb) {
@@ -69,6 +59,7 @@ export const CreateProduct = () => {
         <FormWrapper
           onSubmit={onSubmit}
           resolver={zodResolver(createProductSchema)}
+          defaultValues={{}}
         >
           <FormInput type="text" name="productName" label="Product Name" />
           <FormTextArea name="description" label="Description" />

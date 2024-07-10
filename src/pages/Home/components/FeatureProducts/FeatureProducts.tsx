@@ -193,7 +193,7 @@ export const FeatureProducts = () => {
   const featuredProducts = useAppSelector(getProducts);
 
   return (
-    <section className="py-40 relative">
+    <section className="py-40">
       <Container>
         <div>
           <div className="text-center mb-8">

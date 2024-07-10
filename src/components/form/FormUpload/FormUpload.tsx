@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import { CustomButton, Text, TextVariant } from "../../atoms";
 import { Form, Image, Upload } from "antd";
@@ -10,6 +10,7 @@ interface TFormUploadProps {
   label?: string;
   multiple?: boolean;
   uploadProps?: UploadProps;
+  defaultValue?: string | string[];
 }
 
 export const FormUpload: React.FC<TFormUploadProps> = ({
@@ -17,8 +18,27 @@ export const FormUpload: React.FC<TFormUploadProps> = ({
   label = "Upload",
   multiple = false,
   uploadProps,
+  defaultValue,
 }) => {
   const { control, setValue } = useFormContext();
+
+  useEffect(() => {
+    if (defaultValue) {
+      setValue(name, defaultValue);
+    }
+  }, [setValue, name, defaultValue]);
+
+  const generateDefaultFileList = (urls: string | string[]) => {
+    if (!urls) return [];
+
+    const fileList = Array.isArray(urls) ? urls : [urls];
+    return fileList.map((url, index) => ({
+      uid: index.toString(),
+      name: url.split("/").pop() || "image",
+      status: "done" as const, // Ensure this is a constant type of 'done'
+      url,
+    }));
+  };
 
   const handleFileChange = async (info: any) => {
     const files = await Promise.all(
@@ -81,6 +101,9 @@ export const FormUpload: React.FC<TFormUploadProps> = ({
               maxCount={multiple ? undefined : 1}
               accept="image/*"
               onPreview={handlePreview}
+              defaultFileList={generateDefaultFileList(
+                defaultValue as string | string[]
+              )}
             >
               {!isThumb ? (
                 <button
@@ -104,67 +127,3 @@ export const FormUpload: React.FC<TFormUploadProps> = ({
     </div>
   );
 };
-
-// import React, { useState } from "react";
-// import { useFormContext, Controller } from "react-hook-form";
-// import { CustomButton, Text, TextVariant } from "../../atoms";
-// import { Form, Upload, Modal } from "antd";
-// import { UploadProps } from "antd/lib/upload";
-
-// interface TFormUploadProps {
-//   name: string;
-//   label?: string;
-//   multiple?: boolean;
-//   uploadProps?: UploadProps;
-// }
-
-// export const FormUpload: React.FC<TFormUploadProps> = ({
-//   name,
-//   label = "Upload",
-//   multiple = false,
-//   uploadProps,
-// }) => {
-//   const { control, setValue } = useFormContext();
-
-//   return (
-//     <div className="mb-5">
-//       <Controller
-//         name={name}
-//         control={control}
-//         render={({ field, fieldState: { error } }) => (
-//           <Form.Item
-//             label={label}
-//             help={
-//               error && (
-//                 <Text variant={TextVariant.P6} style={{ color: "red" }}>
-//                   {error.message}
-//                 </Text>
-//               )
-//             }
-//           >
-//             <Upload
-//               {...field}
-//               {...uploadProps}
-//               listType={multiple ? "picture-card" : "picture"}
-//               onPreview={handlePreview}
-//               onChange={handleFileChange}
-//               beforeUpload={() => false}
-//               multiple={multiple}
-//             >
-//               {field.value?.length >= (multiple ? 5 : 1) ? null : (
-//                 <CustomButton>Click to upload</CustomButton>
-//               )}
-//             </Upload>
-//             <Modal
-//               visible={previewVisible}
-//               footer={null}
-//               onCancel={() => setPreviewVisible(false)}
-//             >
-//               <img alt="example" style={{ width: "100%" }} src={previewImage} />
-//             </Modal>
-//           </Form.Item>
-//         )}
-//       />
-//     </div>
-//   );
-// };

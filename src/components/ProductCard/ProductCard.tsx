@@ -1,14 +1,37 @@
-import React from "react";
-import { Card, Rate } from "antd";
+import React, { useState } from "react";
+import { Button, Card, Modal, Rate } from "antd";
 import { TProduct } from "../../types/productTypes";
 import { truncateText } from "../../utils/truncateText";
 import { CustomButton, Text, TextVariant } from "../atoms";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import { colors } from "../../theme/color";
 
 interface ProductCardProps {
   product: TProduct;
+  editOption?: boolean;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({
+  product,
+  editOption,
+}) => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const onEdit = () => {};
+  const onDelete = (id: string) => {};
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+    // Call the onDelete function passed as a prop
+    onDelete(product._id);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   return (
     <Card
       style={{ width: "100%", height: "100%" }}
@@ -47,16 +70,58 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             <Text variant={TextVariant.H4} className="font-bold my-1">
               {product.price}
             </Text>
-            <CustomButton
-              colorKey="primary"
-              htmlType="submit"
-              className=" h-[30px] text-[18px] text-white mt-3"
-            >
-              Buy Now
-            </CustomButton>
+            {editOption ? (
+              <div className="flex space-x-2 mt-3">
+                <CustomButton
+                  colorKey="primary"
+                  htmlType="button"
+                  className="h-[30px] text-[18px] text-white"
+                  onClick={onEdit}
+                >
+                  Edit
+                </CustomButton>
+                <CustomButton
+                  colorKey="danger"
+                  htmlType="button"
+                  className="h-[30px] text-[18px] text-white hover:border-red-500"
+                  onClick={showModal}
+                >
+                  Delete
+                </CustomButton>
+              </div>
+            ) : (
+              <CustomButton
+                colorKey="primary"
+                htmlType="submit"
+                className="h-[30px] text-[18px] text-white mt-3"
+              >
+                Buy Now
+              </CustomButton>
+            )}
           </>
         }
       />
+      <Modal
+        title="Delete Product"
+        visible={isModalVisible}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={[
+          <CustomButton key="back" onClick={handleCancel}>
+            No
+          </CustomButton>,
+          <CustomButton
+            key="submit"
+            colorKey="primary"
+            onClick={handleOk}
+            className="text-white "
+          >
+            Yes
+          </CustomButton>,
+        ]}
+      >
+        <p>Are you sure you want to delete this product?</p>
+      </Modal>
     </Card>
   );
 };
