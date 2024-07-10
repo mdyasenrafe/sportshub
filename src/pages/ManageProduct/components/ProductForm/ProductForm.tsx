@@ -41,8 +41,17 @@ export const ProductForm: React.FC<ProductFormProps> = ({
       <FormInput type="number" name="stockQuantity" label="Stock Quantity" />
       <FormInput type="number" name="rating" label="Rating (0-5)" />
       <FormInput type="number" name="price" label="Price" />
-      <FormUpload name="thumb" label="Upload Profile Image" />
-      <FormUpload name="coverPictures" multiple={true} label="Cover Pictures" />
+      <FormUpload
+        name="thumb"
+        label="Upload Profile Image"
+        defaultValue={[initialProductValues?.thumb as string]}
+      />
+      <FormUpload
+        name="coverPictures"
+        multiple={true}
+        label="Cover Pictures"
+        defaultValue={initialProductValues?.coverPictures || []}
+      />
 
       <CustomButton
         colorKey="primary"

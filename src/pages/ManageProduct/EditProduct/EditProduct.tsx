@@ -6,15 +6,21 @@ import { CATEGORIES_DATA_ARRAY } from "../../../constant/CategoriesData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createProductSchema } from "../../../Schema/Schema";
 import { useImageUploadMutation } from "../../../api/uploadApi";
-import { useCreateProductMutation } from "../../../redux/features/ProductApi";
+import {
+  useCreateProductMutation,
+  useGetProductsByIdQuery,
+} from "../../../redux/features/ProductApi";
 import { toast } from "sonner";
-import { useFormAction, useNavigate } from "react-router-dom";
+import { useFormAction, useNavigate, useParams } from "react-router-dom";
 import { TProduct } from "../../../types/productTypes";
 import { ProductForm } from "../components/ProductForm";
+import { Flex, Spin } from "antd";
 
 export const EditProduct = () => {
   const [imageUpload, { isLoading: imageLoading }] = useImageUploadMutation();
-  const [addProduct, { isLoading }] = useCreateProductMutation();
+  let { productId } = useParams();
+  const { data, isLoading } = useGetProductsByIdQuery(productId as string);
+
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<any> = async (data: TProduct) => {
@@ -46,11 +52,24 @@ export const EditProduct = () => {
   return (
     <MainLayout>
       <Container>
-        <ProductForm
-          initialProductValues={{}}
-          onSubmit={onSubmit}
-          isLoading={false}
-        />
+        {isLoading ? (
+          <div>
+            <Flex
+              align="center"
+              gap="middle"
+              justify="center"
+              className="h-[200px]"
+            >
+              <Spin size="large" />
+            </Flex>
+          </div>
+        ) : (
+          <ProductForm
+            initialProductValues={data?.data as TProduct}
+            onSubmit={onSubmit}
+            isLoading={false}
+          />
+        )}
       </Container>
     </MainLayout>
   );

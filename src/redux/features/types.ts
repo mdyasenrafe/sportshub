@@ -17,3 +17,6 @@ export type ProductsResponse = {
   data: TProduct[];
   meta: MetaData;
 };
+export type ProductResponse = {
+  data: TProduct;
+};

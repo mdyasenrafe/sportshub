@@ -1,7 +1,7 @@
 import { BaseApi } from "../../api/BaseApi";
 import { TProduct } from "../../types/productTypes";
 import { setProducts } from "./ProductSlice";
-import { ProductsResponse } from "./types";
+import { ProductResponse, ProductsResponse } from "./types";
 
 const ProductApi = BaseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -24,7 +24,17 @@ const ProductApi = BaseApi.injectEndpoints({
         } catch (error) {}
       },
     }),
+    getProductsById: builder.query<ProductResponse, string>({
+      query: (productId) => ({
+        url: `/products/${productId}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
-export const { useCreateProductMutation, useGetProductsQuery } = ProductApi;
+export const {
+  useCreateProductMutation,
+  useGetProductsQuery,
+  useGetProductsByIdQuery,
+} = ProductApi;
