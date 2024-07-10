@@ -17,7 +17,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <img
           alt={product.productName}
           src={product.thumb}
-          className="h-48 object-contain"
+          className="h-full object-contain"
         />
       }
       className="border rounded-lg shadow-lg flex flex-col"

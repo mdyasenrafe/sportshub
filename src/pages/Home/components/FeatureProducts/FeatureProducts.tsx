@@ -2,8 +2,11 @@ import React from "react";
 import { colors } from "../../../../theme/color";
 import { Container, Text, TextVariant } from "../../../../components/atoms";
 import { TProduct } from "../../../../types/productTypes";
-import { Col, Row } from "antd";
+import { Col, Flex, Row, Spin } from "antd";
 import { ProductCard } from "../../../../components";
+import { useGetProductsQuery } from "../../../../redux/features/ProductApi";
+import { getProducts } from "../../../../redux/features/ProductSlice";
+import { useAppSelector } from "../../../../redux/hooks";
 
 // const featuredProducts: TProduct[] = [
 //   {
@@ -185,6 +188,10 @@ import { ProductCard } from "../../../../components";
 // ];
 const featuredProducts: TProduct[] = [];
 export const FeatureProducts = () => {
+  const { data, isLoading } = useGetProductsQuery();
+
+  const featuredProducts = useAppSelector(getProducts);
+
   return (
     <section className="py-40 relative">
       <Container>
@@ -202,13 +209,26 @@ export const FeatureProducts = () => {
               features.
             </Text>
           </div>
-          <Row justify="center" gutter={[16, 16]}>
-            {featuredProducts.map((product, index) => (
-              <Col key={index} xs={24} sm={12} md={8} lg={6}>
-                <ProductCard product={product} />
-              </Col>
-            ))}
-          </Row>
+          {isLoading ? (
+            <div>
+              <Flex
+                align="center"
+                gap="middle"
+                justify="center"
+                className="h-[200px]"
+              >
+                <Spin size="large" />
+              </Flex>
+            </div>
+          ) : (
+            <Row justify="center" gutter={[16, 16]}>
+              {featuredProducts.map((product, index) => (
+                <Col key={index} xs={24} sm={12} md={8} lg={6}>
+                  <ProductCard product={product} />
+                </Col>
+              ))}
+            </Row>
+          )}
         </div>
       </Container>
     </section>
