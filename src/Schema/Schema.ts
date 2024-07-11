@@ -32,3 +32,10 @@ export const createProductSchema = z.object({
   thumb: z.string(),
   coverPictures: z.array(z.string()),
 });
+
+export const userDetailsSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  phoneNumber: z.string().min(1, "Phone number is required"),
+  address: z.string().min(1, "Delivery address is required"),
+});

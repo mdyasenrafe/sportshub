@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Col, Row } from "antd";
+import { Col, Modal, Row } from "antd";
 import { TCart } from "../../../../redux/features/cart/types";
 import { Text, TextVariant } from "../../../../components/atoms";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { colors } from "../../../../theme/color";
 import { toast } from "sonner";
-import { updateCart } from "../../../../redux/features/cart/cartSlice"; // Adjust the import path if necessary
+import {
+  deleteCart,
+  updateCart,
+} from "../../../../redux/features/cart/cartSlice"; // Adjust the import path if necessary
 
 type CartCardProps = {
   cart: TCart;
@@ -15,6 +18,7 @@ type CartCardProps = {
 export const CartCard: React.FC<CartCardProps> = ({ cart }) => {
   const dispatch = useDispatch();
   let toasterId: any;
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const increment = () => {
     if (cart.quantity < Number(cart.product.stockQuantity)) {
@@ -45,6 +49,20 @@ export const CartCard: React.FC<CartCardProps> = ({ cart }) => {
         id: toasterId,
       });
     }
+  };
+
+  const showDeleteModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteCart({ productId: cart.product._id }));
+    setIsModalVisible(false);
+    toast.success("Product removed from cart.");
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
   };
 
   return (
@@ -100,6 +118,16 @@ export const CartCard: React.FC<CartCardProps> = ({ cart }) => {
           </Text>
         </Col>
       </Row>
+      <Modal
+        title="Confirm Delete"
+        visible={isModalVisible}
+        onOk={handleDelete}
+        onCancel={handleCancel}
+        okText="Yes"
+        cancelText="No"
+      >
+        <p>Are you sure you want to remove this product from the cart?</p>
+      </Modal>
     </div>
   );
 };

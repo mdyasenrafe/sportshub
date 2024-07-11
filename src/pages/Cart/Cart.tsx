@@ -51,7 +51,7 @@ export const Cart = () => {
   return (
     <MainLayout>
       <Container>
-        <section className="py-20">
+        <section className="py-10">
           <div>
             <div className="text-center mb-8">
               <Text variant={TextVariant.H1} className="text-center"></Text>
