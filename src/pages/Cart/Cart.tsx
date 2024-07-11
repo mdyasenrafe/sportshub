@@ -12,9 +12,24 @@ import { colors } from "../../theme/color";
 import { Route } from "react-router-dom";
 import { Col, Row } from "antd";
 import { CartCard } from "./components/Cart";
+import { TCart } from "../../redux/features/cart/types";
 
 export const Cart = () => {
   const carts = useAppSelector(getCarts);
+
+  const calculateTotals = (carts: TCart[]) => {
+    let subTotal = 0;
+    let vat = 0;
+
+    carts.forEach((cart) => {
+      subTotal += cart.price;
+      vat += cart.vat;
+    });
+
+    return { subTotal, vat, grandTotal: subTotal + vat };
+  };
+
+  const { subTotal, vat, grandTotal } = calculateTotals(carts);
 
   return (
     <MainLayout>
@@ -31,15 +46,37 @@ export const Cart = () => {
             </div>
           </div>
           <Row gutter={24}>
-            <Col xs={24} md={16}>
-              <div>
+            <Col xs={24} md={16} className="h-full">
+              <div className="border border-[#E1E1E1] rounded-lg h-full">
                 {carts.map((cart) => (
                   <CartCard cart={cart} key={cart.product._id} />
                 ))}
               </div>
             </Col>
             <Col xs={24} md={8}>
-              <div className="border border-[#E1E1E1] rounded-lg p-4"></div>
+              <div className="border border-[#E1E1E1] rounded-lg p-4 mt-8 md:mt-0 h-full">
+                <div className="flex justify-between">
+                  <Text className="font-normal">Sub Total</Text>
+                  <Text variant={TextVariant.H5}>${subTotal}</Text>
+                </div>
+                <div className="flex justify-between">
+                  <Text className="font-normal">Vat</Text>
+                  <Text variant={TextVariant.H5}>${vat}</Text>
+                </div>{" "}
+                <hr className="my-1" />
+                <div className="flex justify-between">
+                  <Text className="font-normal">Grand Total</Text>
+                  <Text variant={TextVariant.H5}>${grandTotal}</Text>
+                </div>
+                <div className="mt-8">
+                  <CustomButton
+                    colorKey="primary"
+                    className="text-white h-[48px] w-full rounded-full font-poppins text-[16px]"
+                  >
+                    Proced To Checkout
+                  </CustomButton>
+                </div>
+              </div>
             </Col>
           </Row>
         </section>

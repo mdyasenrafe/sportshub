@@ -1,22 +1,29 @@
+import React from "react";
+import { useDispatch } from "react-redux";
 import { Col, Row } from "antd";
-import React, { useState } from "react";
 import { TCart } from "../../../../redux/features/cart/types";
 import { Text, TextVariant } from "../../../../components/atoms";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { colors } from "../../../../theme/color";
 import { toast } from "sonner";
+import { updateCart } from "../../../../redux/features/cart/cartSlice"; // Adjust the import path if necessary
 
 type CartCardProps = {
   cart: TCart;
 };
 
 export const CartCard: React.FC<CartCardProps> = ({ cart }) => {
-  const [count, setCount] = useState<number>(cart.quantity);
+  const dispatch = useDispatch();
   let toasterId: any;
 
   const increment = () => {
-    if (count < Number(cart.product.stockQuantity)) {
-      setCount((prevCount) => prevCount + 1);
+    if (cart.quantity < Number(cart.product.stockQuantity)) {
+      dispatch(
+        updateCart({
+          productId: cart.product._id,
+          quantity: cart.quantity + 1,
+        })
+      );
     } else {
       toasterId = toast.warning(
         "You cannot add more than the available stock.",
@@ -26,16 +33,22 @@ export const CartCard: React.FC<CartCardProps> = ({ cart }) => {
   };
 
   const decrement = () => {
-    if (count > 1) {
-      setCount((prevCount) => prevCount - 1);
+    if (cart.quantity > 1) {
+      dispatch(
+        updateCart({
+          productId: cart.product._id,
+          quantity: cart.quantity - 1,
+        })
+      );
     } else {
       toasterId = toast.warning("The minimum quantity is 1.", {
         id: toasterId,
       });
     }
   };
+
   return (
-    <div className="border border-[#E1E1E1] rounded-lg p-4">
+    <div className="border-b border-b-[#e1e1e1] p-4">
       <Row justify="space-between">
         <Col>
           <Row gutter={12}>
@@ -43,6 +56,7 @@ export const CartCard: React.FC<CartCardProps> = ({ cart }) => {
               <img
                 src={cart.product.thumb}
                 className="w-[100px] h-[100px] rounded-md object-cover"
+                alt={cart.product.productName}
               />
             </Col>
             <Col>
@@ -55,7 +69,7 @@ export const CartCard: React.FC<CartCardProps> = ({ cart }) => {
                   <AiOutlinePlus className="text-[24px] text-[#ff4d4f]" />
                 </div>
                 <span className="w-[33%] flex justify-center text-[18px]">
-                  {count}
+                  {cart.quantity}
                 </span>
                 <div
                   className="w-[33%] flex justify-center text-[18px] cursor-pointer"
@@ -74,7 +88,7 @@ export const CartCard: React.FC<CartCardProps> = ({ cart }) => {
               color: colors.primary,
             }}
           >
-            ${cart.product.price}
+            ${cart.price}
           </Text>
         </Col>
       </Row>

@@ -8,29 +8,6 @@ import { useGetProductsQuery } from "../../../../redux/features/product/productA
 import { getProducts } from "../../../../redux/features/product/productSlice";
 import { useAppSelector } from "../../../../redux/hooks";
 
-// const featuredProducts: TProduct[] = [
-//   {
-//     productName: "Endurance Running Shoes",
-//     description:
-//       "Experience unmatched durability and comfort with our Endurance Running Shoes. Designed for the long haul, these shoes feature advanced cushioning technology that absorbs impact and optimizes rebound, providing you with the support needed to keep pushing your limits. With a breathable mesh upper that keeps your feet cool and dry, and a robust outsole that grips on varied surfaces, you are set for any adventure. The dynamic fit system adapts to the shape of your foot, ensuring a perfect fit with no slippage. Whether you're hitting the trails or the track, these shoes are your ideal companion for achieving new personal bests. Tagged with a high abrasion resistance, they're built to withstand rigorous training routines and long-distance runs. Upgrade your running gear and enjoy a blend of functionality and unmatched comfort.",
-//     category: "Running",
-//     brand: "Athletix",
-//     stockQuantity: 150,
-//     rating: 4.5,
-//     price: "$120.00",
-//     image: "https://i.ibb.co/FbRDRSJ/image.png",
-//   },
-//   {
-//     productName: "Pro Swim Goggles",
-//     description:
-//       "Dive into excellence with our Pro Swim Goggles. Engineered for competitive swimmers, these goggles offer superior clarity and are designed to reduce drag and promote optimal alignment in the water. The anti-fog treatment ensures you maintain clear vision during your swim, while the wide peripheral range allows you to keep an eye on your rivals. Featuring a dual strap for security and an adjustable nose bridge for comfort, these goggles are both practical and comfortable. The mirrored lens technology not only protects your eyes from harmful UV rays but also minimizes glare, allowing you to focus on your swimming technique. Approved by international swimming federations, they are a must-have for anyone serious about competitive swimming. Get ready to swim like a pro, with visibility and comfort that adjusts seamlessly to your needs.",
-//     category: "Water Sports",
-//     brand: "AquaFast",
-//     stockQuantity: 200,
-//     rating: 4.8,
-//     price: "$35.00",
-//     image: "url-to-swim-goggles-image.jpg",
-//   },
 //   {
 //     productName: "Elite Basketball",
 //     description:
@@ -189,7 +166,7 @@ import { useAppSelector } from "../../../../redux/hooks";
 const featuredProducts: TProduct[] = [];
 export const FeatureProducts = () => {
   const { data, isLoading } = useGetProductsQuery(undefined, {
-    // pollingInterval: 3000,
+    pollingInterval: 3000,
   });
 
   const featuredProducts = useAppSelector(getProducts);

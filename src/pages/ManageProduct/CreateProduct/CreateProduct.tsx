@@ -1,21 +1,10 @@
 import { MainLayout } from "../../../components/atoms/layout/MainLayout";
-import {
-  FormInput,
-  FormSelect,
-  FormWrapper,
-  FormTextArea,
-  FormUpload,
-} from "../../../components/form";
-import { Container, CustomButton } from "../../../components/atoms";
-import { FieldValues, SubmitHandler, useFormContext } from "react-hook-form";
-import { BRAND_DATA } from "../../../constant/BrandData";
-import { CATEGORIES_DATA_ARRAY } from "../../../constant/CategoriesData";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createProductSchema } from "../../../Schema/Schema";
+import { Container } from "../../../components/atoms";
+import { SubmitHandler } from "react-hook-form";
 import { useImageUploadMutation } from "../../../api/uploadApi";
 import { useCreateProductMutation } from "../../../redux/features/product/productApi";
 import { toast } from "sonner";
-import { useFormAction, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { TProduct } from "../../../types/productTypes";
 import { ProductForm } from "../components/ProductForm";
 
@@ -40,20 +29,27 @@ export const CreateProduct = () => {
         );
 
         const coverPictureResults = await Promise.all(uploadPromises);
+        console.log(coverPictureResults);
         const coverPictureUrls = coverPictureResults.map(
           (res) => res?.data?.url
         );
 
-        data.coverPictures = coverPictureUrls;
+        data.coverPictures = await coverPictureUrls;
       }
 
+      // Call another API after all images are uploaded
       const res = await addProduct(data);
-      toast.success("Product created succesfully");
-      navigate("/manage-product/products");
+      if (res.data) {
+        toast.success("Product created successfully");
+        navigate("/manage-product/products");
+      } else {
+        toast.error("Something went wrong! pls try again");
+      }
     } catch (err) {
       console.error("Error uploading images: ", err);
     }
   };
+
   return (
     <MainLayout>
       <Container>
