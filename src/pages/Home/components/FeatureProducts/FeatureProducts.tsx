@@ -4,8 +4,8 @@ import { Container, Text, TextVariant } from "../../../../components/atoms";
 import { TProduct } from "../../../../types/productTypes";
 import { Col, Flex, Row, Spin } from "antd";
 import { ProductCard } from "../../../../components";
-import { useGetProductsQuery } from "../../../../redux/features/ProductApi";
-import { getProducts } from "../../../../redux/features/ProductSlice";
+import { useGetProductsQuery } from "../../../../redux/features/product/productApi";
+import { getProducts } from "../../../../redux/features/product/productSlice";
 import { useAppSelector } from "../../../../redux/hooks";
 
 // const featuredProducts: TProduct[] = [

@@ -6,7 +6,7 @@ import {
   useGetProductsByIdQuery,
   useGetProductsQuery,
   useUpdateProductMutation,
-} from "../../../redux/features/ProductApi";
+} from "../../../redux/features/product/productApi";
 import { useNavigate, useParams } from "react-router-dom";
 import { TProduct } from "../../../types/productTypes";
 import { ProductForm } from "../components/ProductForm";

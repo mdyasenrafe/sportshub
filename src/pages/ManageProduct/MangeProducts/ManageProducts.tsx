@@ -4,9 +4,9 @@ import { Container, Text, TextVariant } from "../../../components/atoms";
 import { colors } from "../../../theme/color";
 import { Col, Flex, Row, Spin } from "antd";
 import { ProductCard } from "../../../components";
-import { useGetProductsQuery } from "../../../redux/features/ProductApi";
+import { useGetProductsQuery } from "../../../redux/features/product/productApi";
 import { useAppSelector } from "../../../redux/hooks";
-import { getProducts } from "../../../redux/features/ProductSlice";
+import { getProducts } from "../../../redux/features/product/productSlice";
 
 export const ManageProducts = () => {
   const { data, isLoading } = useGetProductsQuery();

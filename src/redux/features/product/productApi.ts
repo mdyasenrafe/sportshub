@@ -1,6 +1,6 @@
-import { BaseApi } from "../../api/BaseApi";
-import { TProduct } from "../../types/productTypes";
-import { deleteProduct, setProducts, updateProduct } from "./ProductSlice";
+import { BaseApi } from "../../../api/BaseApi";
+import { TProduct } from "../../../types/productTypes";
+import { deleteProduct, setProducts, updateProduct } from "./productSlice";
 import { ProductResponse, ProductsResponse } from "./types";
 
 const ProductApi = BaseApi.injectEndpoints({

@@ -4,7 +4,7 @@ import { TProduct } from "../../types/productTypes"; // Assuming you have define
 import { truncateText } from "../../utils/truncateText";
 import { CustomButton, Text, TextVariant } from "../atoms";
 import { useNavigate } from "react-router-dom";
-import { useDeleteProductMutation } from "../../redux/features/ProductApi";
+import { useDeleteProductMutation } from "../../redux/features/product/productApi";
 import { SyntheticEvent } from "react"; // Import SyntheticEvent for event typing
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { toast } from "sonner";

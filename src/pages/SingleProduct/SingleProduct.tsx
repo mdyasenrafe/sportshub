@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { useGetProductsByIdQuery } from "../../redux/features/ProductApi";
+import { useGetProductsByIdQuery } from "../../redux/features/product/productApi";
 import { MainLayout } from "../../components/atoms/layout/MainLayout";
 import {
   Container,

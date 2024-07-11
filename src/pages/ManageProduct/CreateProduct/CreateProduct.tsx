@@ -13,7 +13,7 @@ import { CATEGORIES_DATA_ARRAY } from "../../../constant/CategoriesData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createProductSchema } from "../../../Schema/Schema";
 import { useImageUploadMutation } from "../../../api/uploadApi";
-import { useCreateProductMutation } from "../../../redux/features/ProductApi";
+import { useCreateProductMutation } from "../../../redux/features/product/productApi";
 import { toast } from "sonner";
 import { useFormAction, useNavigate } from "react-router-dom";
 import { TProduct } from "../../../types/productTypes";
