@@ -9,39 +9,6 @@ import { getProducts } from "../../../../redux/features/product/productSlice";
 import { useAppSelector } from "../../../../redux/hooks";
 
 //   {
-//     productName: "Elite Basketball",
-//     description:
-//       "The Elite Basketball is crafted for serious players who demand high performance on the court. Made with premium composite leather, this basketball offers excellent grip and control, allowing you to execute precise passes and shots with confidence. Its moisture-wicking cover keeps the ball dry and responsive, while the reinforced bladder ensures maximum air retention for consistent bounce and long-lasting play. Whether you're training or competing, the Elite Basketball is designed to meet the rigorous standards of professional play. Endorsed by top athletes, this basketball will elevate your game with its superior quality and durability. Step up to the challenge and dominate the court with the Elite Basketball.",
-//     category: "Team Sports",
-//     brand: "ProHoop",
-//     stockQuantity: 300,
-//     rating: 4.7,
-//     price: "$60.00",
-//     image: "https://i.ibb.co/sRv1B2J/image.png",
-//   },
-//   {
-//     productName: "Yoga Master Mat",
-//     description:
-//       "Transform your practice with the Yoga Master Mat. This mat provides a perfect balance of comfort and stability, designed to support you through every pose. With its non-slip surface and optimal thickness, it offers excellent cushioning for your joints and a firm grip to keep you grounded. Made from eco-friendly materials, the Yoga Master Mat is free from harmful chemicals and is biodegradable, making it a great choice for both you and the environment. Its lightweight design makes it easy to carry, whether you're heading to the studio or practicing at home. Enhance your yoga experience with a mat that blends functionality, comfort, and sustainability. The Yoga Master Mat is your ideal partner on the journey to physical and mental well-being.",
-//     category: "Yoga",
-//     brand: "ZenFlex",
-//     stockQuantity: 100,
-//     rating: 4.9,
-//     price: "$45.00",
-//     image: "url-to-yoga-mat-image.jpg",
-//   },
-//   {
-//     productName: "Pro Cyclist Helmet",
-//     description:
-//       "Stay safe and stylish on your rides with the Pro Cyclist Helmet. This helmet combines cutting-edge safety features with a sleek design, ensuring you look good while staying protected. It features a durable polycarbonate shell and EPS foam liner that absorbs impact, providing top-notch protection in case of a fall. The adjustable fit system allows for a personalized and secure fit, while the ventilation system keeps you cool and comfortable, even on long rides. The lightweight design reduces strain on your neck, making it ideal for extended cycling sessions. Available in various colors and sizes, the Pro Cyclist Helmet is perfect for riders of all levels. Prioritize your safety without compromising on style with this essential piece of cycling gear.",
-//     category: "Cycling",
-//     brand: "RideSafe",
-//     stockQuantity: 120,
-//     rating: 4.6,
-//     price: "$75.00",
-//     image: "url-to-cyclist-helmet-image.jpg",
-//   },
-//   {
 //     productName: "Trail Blazing Hiking Backpack",
 //     description:
 //       "Embark on your outdoor adventures fully equipped with our Trail Blazing Hiking Backpack. Designed for the modern explorer, this backpack is built from durable, weather-resistant materials, ready to withstand the elements of any terrain. The ergonomic design ensures comfort even when packed to capacity, featuring padded shoulder straps, a ventilated back panel, and multiple compartments for organized storage. Ideal for long hikes and camping trips, this backpack's intuitive pockets and hydration system port make it an essential outdoor companion. Whether you're crossing rivers or scaling mountains, our Trail Blazing Hiking Backpack offers the reliability and functionality to take your explorations to new heights.",

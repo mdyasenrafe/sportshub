@@ -1,16 +1,27 @@
 import { BaseApi } from "../../../api/BaseApi";
 import { TProduct } from "../../../types/productTypes";
-import { deleteProduct, setProducts, updateProduct } from "./productSlice";
+import {
+  addProduct,
+  deleteProduct,
+  setProducts,
+  updateProduct,
+} from "./productSlice";
 import { ProductResponse, ProductsResponse } from "./types";
 
 const ProductApi = BaseApi.injectEndpoints({
   endpoints: (builder) => ({
-    createProduct: builder.mutation<TProduct, Partial<TProduct>>({
+    createProduct: builder.mutation<ProductResponse, Partial<TProduct>>({
       query: (newProduct) => ({
         url: "/products/create",
         method: "POST",
         body: newProduct,
       }),
+      async onQueryStarted(_id, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          dispatch(addProduct(data.data));
+        } catch (error) {}
+      },
     }),
     getProducts: builder.query<ProductsResponse, void>({
       query: () => ({
