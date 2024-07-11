@@ -21,7 +21,13 @@ export const Checkout = () => {
   const [addOrder, { isLoading }] = usePlaceOrderMutation();
   const carts = useAppSelector(getCarts);
   const onSubmit: SubmitHandler<any> = async (data: TProduct) => {
-    console.log(data);
+    const ids = carts.map((cart) => cart.product._id);
+    const bodyData = {
+      ...data,
+      productIds: ids,
+    };
+    try {
+    } catch (err) {}
   };
   return (
     <MainLayout>
