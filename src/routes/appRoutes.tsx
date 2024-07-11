@@ -69,7 +69,7 @@ export const appRoutes: AppRoute[] = [
   {
     id: 5,
     name: "Single Product",
-    path: "/single-product",
+    path: "/single-product/:productId",
     component: <SingleProduct />,
     isNavItem: false,
   },

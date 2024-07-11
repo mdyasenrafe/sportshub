@@ -17,7 +17,11 @@ export const CustomButton: React.FC<CustomButtonProps> = ({
 }) => {
   // Apply custom color styles if colorKey is provided
   const style = colorKey
-    ? { backgroundColor: colors[colorKey], borderColor: colors[colorKey] }
+    ? {
+        backgroundColor: colors[colorKey],
+        borderColor: colors[colorKey],
+        fontSize: 16,
+      }
     : {};
 
   return (
