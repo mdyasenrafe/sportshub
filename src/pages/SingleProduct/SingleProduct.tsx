@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useGetProductsByIdQuery } from "../../redux/features/ProductApi";
 import { MainLayout } from "../../components/atoms/layout/MainLayout";
@@ -22,6 +22,15 @@ export const SingleProduct = () => {
   );
   // states
   const [count, setCount] = useState(1);
+  const [isAddToCartDisabled, setIsAddToCartDisabled] = useState(false);
+
+  useEffect(() => {
+    // Update the disabled state whenever count or stock quantity changes
+    if (productData) {
+      setIsAddToCartDisabled(count > Number(productData.data.stockQuantity));
+    }
+  }, [count, productData]);
+
   let toasterId: any;
 
   const increment = () => {
@@ -74,16 +83,18 @@ export const SingleProduct = () => {
                 }}
               >
                 <div className="flex relative w-[90%] overflow-y-scroll mt-4">
-                  {productData?.data.coverPictures.map((image, index) => (
-                    <PhotoView src={image}>
-                      <img
-                        style={{ objectFit: "cover" }}
-                        src={image}
-                        alt={`Cover ${index}`}
-                        className="w-[100px] h-[100px] mr-6 object-cover rounded shadow-md cursor-pointer"
-                      />
-                    </PhotoView>
-                  ))}
+                  {productData?.data.coverPictures.map(
+                    (image: string, index) => (
+                      <PhotoView src={image}>
+                        <img
+                          style={{ objectFit: "cover" }}
+                          src={image}
+                          alt={`Cover ${index}`}
+                          className="w-[100px] h-[100px] mr-6 object-cover rounded shadow-md cursor-pointer"
+                        />
+                      </PhotoView>
+                    )
+                  )}
                 </div>
               </PhotoProvider>
             </Col>
@@ -146,6 +157,7 @@ export const SingleProduct = () => {
                 <CustomButton
                   colorKey="primary"
                   className="text-white h-[48px] w-[200px] rounded-full font-poppins text-[16px]"
+                  disabled={isAddToCartDisabled}
                 >
                   Add To Cart
                 </CustomButton>
