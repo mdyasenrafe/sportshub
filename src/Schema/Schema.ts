@@ -38,4 +38,5 @@ export const userDetailsSchema = z.object({
   email: z.string().email("Invalid email address"),
   phoneNumber: z.string().min(1, "Phone number is required"),
   address: z.string().min(1, "Delivery address is required"),
+  paymentMethod: z.string().min(1, { message: "Category is required" }),
 });

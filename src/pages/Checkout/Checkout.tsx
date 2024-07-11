@@ -13,10 +13,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { userDetailsSchema } from "../../Schema/Schema";
 import { paymentMethods } from "../../constant/paymentMethods";
 import { colors } from "../../theme/color";
+import { usePlaceOrderMutation } from "../../redux/features/order/orderApi";
+import { useAppSelector } from "../../redux/hooks";
+import { getCarts } from "../../redux/features/cart/cartSlice";
 
 export const Checkout = () => {
-  const [isLoading, setIsloading] = useState(false);
-  const onSubmit: SubmitHandler<any> = async (data: TProduct) => {};
+  const [addOrder, { isLoading }] = usePlaceOrderMutation();
+  const carts = useAppSelector(getCarts);
+  const onSubmit: SubmitHandler<any> = async (data: TProduct) => {
+    console.log(data);
+  };
   return (
     <MainLayout>
       <Container>
@@ -43,7 +49,7 @@ export const Checkout = () => {
             <FormInput type="text" name="phoneNumber" label="Phone Number" />
             <FormInput type="text" name="address" label="Delivery" />
             <FormSelect
-              name="paymentMethods"
+              name="paymentMethod"
               label="Select Payment Methods"
               options={paymentMethods}
             />
