@@ -18,8 +18,13 @@ export const CreateProduct = () => {
       // Handle thumb image upload
       if (data.thumb) {
         const thumbRes = await imageUpload({ url: data.thumb }).unwrap();
-        console.log(thumbRes);
-        data.thumb = thumbRes?.data?.url;
+
+        if (thumbRes?.data?.url) {
+          data.thumb = thumbRes.data.url;
+        } else {
+          toast.error("Something went wrong! pls try again");
+          navigate("/");
+        }
       }
 
       // Handle cover pictures upload
@@ -44,6 +49,7 @@ export const CreateProduct = () => {
         navigate("/manage-product/products");
       } else {
         toast.error("Something went wrong! pls try again");
+        navigate("/");
       }
     } catch (err) {
       console.error("Error uploading images: ", err);

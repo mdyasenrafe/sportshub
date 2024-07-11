@@ -13,7 +13,16 @@ export const createProductSchema = z.object({
   brand: z.string().min(1, { message: "Brand is required" }),
   stockQuantity: z
     .string()
-    .regex(/^\d+$/, { message: "Stock quantity must be a valid number" }),
+    .regex(/^\d+(\.\d+)?$/, {
+      message: "Stock quantity must be a valid number",
+    })
+    .transform((val) => {
+      const floored = Math.floor(parseFloat(val));
+      if (!Number.isInteger(floored)) {
+        throw new Error("Stock quantity must be an integer");
+      }
+      return floored.toString();
+    }),
   rating: z.string().regex(/^[0-5](\.[0-9]+)?$/, {
     message: "Rating must be a number between 0 and 5",
   }),
