@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Button, Card, Modal, Rate } from "antd";
-import { TProduct } from "../../types/productTypes";
+import { TProduct } from "../../types/productTypes"; // Assuming you have defined this type
 import { truncateText } from "../../utils/truncateText";
 import { CustomButton, Text, TextVariant } from "../atoms";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useDeleteProductMutation } from "../../redux/features/ProductApi";
+import { SyntheticEvent } from "react"; // Import SyntheticEvent for event typing
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { toast } from "sonner";
-import { async } from "q";
-import { Link } from "react-router-dom";
 
 interface ProductCardProps {
   product: TProduct;
@@ -20,36 +20,41 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const navigate = useNavigate();
-  // apis
-  const [deleteProduct, { data, isLoading }] = useDeleteProductMutation();
-  const onEdit = (id: string) => {
+  const [deleteProduct, { isLoading }] = useDeleteProductMutation();
+
+  const onEdit = (event: SyntheticEvent, id: string) => {
+    event.stopPropagation();
     navigate(`/manage-product/edit/${id}`);
   };
+
   const onDelete = async (id: string) => {
     try {
-      const res = await deleteProduct(id);
-      toast.success("Product deleted succesfully");
+      const res = await deleteProduct(id).unwrap();
+      toast.success("Product deleted successfully");
     } catch (err: any) {
-      toast.error(err.message || "Something went wrong");
+      toast.error(err.error.message || "Something went wrong");
     }
   };
-  const showModal = () => {
+
+  const showModal = (event: SyntheticEvent) => {
+    event.stopPropagation();
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
+  const handleOk = (event: SyntheticEvent) => {
+    event.stopPropagation();
     setIsModalVisible(false);
-    // Call the onDelete function passed as a prop
     onDelete(product._id);
   };
 
-  const handleCancel = () => {
+  const handleCancel = (event: SyntheticEvent) => {
+    event.stopPropagation();
     setIsModalVisible(false);
   };
+
   return (
-    <Link to={`/single-product/${product._id}`}>
+    <div onClick={() => navigate(`/single-product/${product._id}`)}>
       <Card
-        style={{ width: "100%", height: "100%" }}
         hoverable
         cover={
           <img
@@ -91,7 +96,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                     colorKey="primary"
                     htmlType="button"
                     className="h-[37px] text-[16px] text-white mt-3 font-poppins"
-                    onClick={() => onEdit(product._id)}
+                    onClick={(e) => onEdit(e, product._id)}
                   >
                     Edit
                   </CustomButton>
@@ -117,7 +122,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           }
         />
         <Modal
-          title="Delete Product"
+          title="Are you sure?"
           visible={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
@@ -129,7 +134,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               key="submit"
               colorKey="primary"
               onClick={handleOk}
-              className="text-white "
+              className="text-white"
             >
               Yes
             </CustomButton>,
@@ -138,6 +143,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <p>Are you sure you want to delete this product?</p>
         </Modal>
       </Card>
-    </Link>
+    </div>
   );
 };

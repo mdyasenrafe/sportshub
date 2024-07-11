@@ -12,6 +12,8 @@ import { Col, Rate, Row } from "antd";
 import { colors } from "../../theme/color";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { toast } from "sonner";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
 
 export const SingleProduct = () => {
   let { productId } = useParams();
@@ -55,6 +57,35 @@ export const SingleProduct = () => {
                   className="rounded-lg h-full lg:w-[90%]"
                 />
               </div>
+              <PhotoProvider
+                toolbarRender={({ onScale, scale }) => {
+                  return (
+                    <>
+                      <svg
+                        className="PhotoView-Slider__toolbarIcon"
+                        onClick={() => onScale(scale + 1)}
+                      />
+                      <svg
+                        className="PhotoView-Slider__toolbarIcon"
+                        onClick={() => onScale(scale - 1)}
+                      />
+                    </>
+                  );
+                }}
+              >
+                <div className="flex relative w-full overflow-y-scroll mt-4">
+                  {productData?.data.coverPictures.map((image, index) => (
+                    <PhotoView src={image}>
+                      <img
+                        style={{ objectFit: "cover" }}
+                        src={image}
+                        alt={`Cover ${index}`}
+                        className="w-[100px] h-[100px] mr-6 object-cover rounded shadow-md cursor-pointer"
+                      />
+                    </PhotoView>
+                  ))}
+                </div>
+              </PhotoProvider>
             </Col>
             <Col xs={24} md={12}>
               <div className="mb-4 pt-8">
