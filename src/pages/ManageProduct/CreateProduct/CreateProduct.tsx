@@ -34,7 +34,6 @@ export const CreateProduct = () => {
         );
 
         const coverPictureResults = await Promise.all(uploadPromises);
-        console.log(coverPictureResults);
         const coverPictureUrls = coverPictureResults.map(
           (res) => res?.data?.url
         );
@@ -42,8 +41,13 @@ export const CreateProduct = () => {
         data.coverPictures = await coverPictureUrls;
       }
 
+      const bodyData = {
+        ...data,
+        stockQuantity: Number(data.stockQuantity),
+      };
+
       // Call another API after all images are uploaded
-      const res = await addProduct(data);
+      const res = await addProduct(bodyData);
       if (res.data) {
         toast.success("Product created successfully");
         navigate("/manage-product/products");

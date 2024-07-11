@@ -3,5 +3,5 @@ export interface TOrder {
   email: string;
   phoneNumber: string;
   address: string;
-  productIds: string[];
+  products: { productId: string; quantity: number }[];
 }

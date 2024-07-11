@@ -4,7 +4,7 @@ export interface TProduct {
   description: string;
   category: string;
   brand: string;
-  stockQuantity: string;
+  stockQuantity: number;
   rating: string;
   price: string;
   thumb: string;

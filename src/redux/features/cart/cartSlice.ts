@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TCartState, TCart } from "./types";
 import { TProduct } from "../../../types/productTypes";
 import { RootState } from "../../store";
+
 const initialState: TCartState = {
   cart: [],
 };
@@ -29,7 +30,7 @@ export const cartSlice = createSlice({
           product,
           quantity,
           price: quantity * parseFloat(product.price),
-          vat: quantity * parseFloat(product.price) * 0.15, // Assuming VAT is 20%
+          vat: quantity * parseFloat(product.price) * 0.15, // Assuming VAT is 15%
         };
         state.cart.push(newCartItem);
       }
@@ -55,10 +56,13 @@ export const cartSlice = createSlice({
         (item) => item.product._id !== action.payload.productId
       );
     },
+    clearCart: (state) => {
+      state.cart = [];
+    },
   },
 });
 
-export const { addCart, updateCart, deleteCart } = cartSlice.actions;
+export const { addCart, updateCart, deleteCart, clearCart } = cartSlice.actions;
 
 export const getCarts = (state: RootState) => state.cart.cart;
 

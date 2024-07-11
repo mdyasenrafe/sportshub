@@ -14,30 +14,41 @@ import { userDetailsSchema } from "../../Schema/Schema";
 import { paymentMethods } from "../../constant/paymentMethods";
 import { colors } from "../../theme/color";
 import { usePlaceOrderMutation } from "../../redux/features/order/orderApi";
-import { useAppSelector } from "../../redux/hooks";
-import { getCarts } from "../../redux/features/cart/cartSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { clearCart, getCarts } from "../../redux/features/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 export const Checkout = () => {
   const [addOrder, { isLoading }] = usePlaceOrderMutation();
   const carts = useAppSelector(getCarts);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<any> = async (data: TProduct) => {
-    const ids = carts.map((cart) => cart.product._id);
-    const bodyData = {
-      ...data,
-      productIds: ids,
-    };
-    const res = await addOrder(bodyData).unwrap();
-
-    if (res.data) {
-      navigate("/order-successful");
-    } else {
-      toast.warning("Something went wrong!");
-    }
     try {
-    } catch (err) {}
+      // Construct the array of products with quantities
+      const products = carts.map((cart) => ({
+        productId: cart.product._id,
+        quantity: cart.quantity,
+      }));
+
+      // Create the order payload
+      const orderData = {
+        ...data,
+        products: products,
+      };
+
+      // Send the order
+      const result = await addOrder(orderData).unwrap();
+
+      // Navigate on success
+      navigate("/order-successful");
+      dispatch(clearCart());
+      toast.success("Order placed successfully!");
+    } catch (err) {
+      // Error handling
+      toast.error("Failed to place the order ");
+    }
   };
   return (
     <MainLayout>
