@@ -2,9 +2,9 @@ import React from "react";
 import { About, Cart, Checkout, Home, Products, SingleProduct } from "../pages";
 import {
   CreateProduct,
-  ManageProducts,
   EditProduct,
-} from "../pages/manageProduct";
+  ManageProducts,
+} from "../pages/ManageProduct";
 
 export type AppRoute = {
   id: number;

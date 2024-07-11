@@ -1,7 +1,6 @@
 import React from "react";
 import { MainLayout } from "../../../components/atoms/layout/MainLayout";
 import { Container, Text, TextVariant } from "../../../components/atoms";
-import { TProduct } from "../../../types/productTypes";
 import { colors } from "../../../theme/color";
 import { Col, Flex, Row, Spin } from "antd";
 import { ProductCard } from "../../../components";
