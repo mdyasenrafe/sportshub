@@ -113,7 +113,11 @@ export const CartCard: React.FC<CartCardProps> = ({ cart }) => {
           >
             ${cart.price}
           </Text>
-          <Text variant={TextVariant.P6} className="cursor-pointer">
+          <Text
+            variant={TextVariant.P6}
+            className="cursor-pointer"
+            onClick={showDeleteModal}
+          >
             Remove Product
           </Text>
         </Col>

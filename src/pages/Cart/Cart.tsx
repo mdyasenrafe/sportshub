@@ -54,12 +54,16 @@ export const Cart = () => {
         <section className="py-10">
           <div>
             <div className="text-center mb-8">
-              <Text variant={TextVariant.H1} className="text-center"></Text>
+              <Text variant={TextVariant.H1} className="text-center">
+                Your Shopping Cart
+              </Text>
               <Text
                 variant={TextVariant.P3}
                 className="mt-[8px]"
                 style={{ color: colors.darkGray }}
-              ></Text>
+              >
+                Review and manage products you've added to your cart.
+              </Text>
             </div>
           </div>
           <Row gutter={24}>

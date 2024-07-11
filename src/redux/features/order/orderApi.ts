@@ -10,6 +10,7 @@ const orderApi = BaseApi.injectEndpoints({
         method: "POST",
         body: newProduct,
       }),
+      invalidatesTags: ["Products"],
     }),
   }),
 });

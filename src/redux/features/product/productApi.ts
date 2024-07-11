@@ -34,6 +34,7 @@ const ProductApi = BaseApi.injectEndpoints({
           dispatch(setProducts(data.data));
         } catch (error) {}
       },
+      providesTags: ["Products"],
     }),
     getProductsById: builder.query<ProductResponse, string>({
       query: (productId) => ({

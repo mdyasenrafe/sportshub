@@ -16,16 +16,26 @@ import { colors } from "../../theme/color";
 import { usePlaceOrderMutation } from "../../redux/features/order/orderApi";
 import { useAppSelector } from "../../redux/hooks";
 import { getCarts } from "../../redux/features/cart/cartSlice";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export const Checkout = () => {
   const [addOrder, { isLoading }] = usePlaceOrderMutation();
   const carts = useAppSelector(getCarts);
+  const navigate = useNavigate();
   const onSubmit: SubmitHandler<any> = async (data: TProduct) => {
     const ids = carts.map((cart) => cart.product._id);
     const bodyData = {
       ...data,
       productIds: ids,
     };
+    const res = await addOrder(bodyData).unwrap();
+
+    if (res.data) {
+      navigate("/order-successful");
+    } else {
+      toast.warning("Something went wrong!");
+    }
     try {
     } catch (err) {}
   };
