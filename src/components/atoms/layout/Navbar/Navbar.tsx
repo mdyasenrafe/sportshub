@@ -6,6 +6,7 @@ import { HiOutlineX } from "react-icons/hi";
 import { appRoutes } from "../../../../routes/appRoutes";
 import { generateNavItems } from "../../../../utils/navItemGenerator";
 import { Container } from "../../Container";
+import Logo from "../../.././../assets/images/logo.png";
 
 export const Navbar = () => {
   const [isMenuVisible, setMenuVisibility] = useState(false);
@@ -39,11 +40,11 @@ export const Navbar = () => {
           <div className="ml-3 w-[30%]">
             <NavLink to="/" className="flex items-center">
               <img
-                className="h-[40px] py-1 cursor-pointer"
-                // src={logo} // Uncomment and set the correct path for the logo
+                className="h-[50px] py-1 cursor-pointer"
+                src={Logo}
                 alt="Logo"
               />
-              <h1 className="hidden lg:inline mx-2">SportsHub</h1>
+              <h1 className="hidden lg:inline">SportsHub</h1>
             </NavLink>
           </div>
 
