@@ -23,13 +23,13 @@ export const cartSlice = createSlice({
         existingCartItem.quantity += quantity;
         existingCartItem.price =
           existingCartItem.quantity * parseFloat(product.price);
-        existingCartItem.vat = existingCartItem.price * 0.2; // Assuming VAT is 20%
+        existingCartItem.vat = existingCartItem.price * 0.15;
       } else {
         const newCartItem: TCart = {
           product,
           quantity,
           price: quantity * parseFloat(product.price),
-          vat: quantity * parseFloat(product.price) * 0.2, // Assuming VAT is 20%
+          vat: quantity * parseFloat(product.price) * 0.15, // Assuming VAT is 20%
         };
         state.cart.push(newCartItem);
       }
@@ -47,7 +47,7 @@ export const cartSlice = createSlice({
         existingCartItem.quantity = quantity;
         existingCartItem.price =
           quantity * parseFloat(existingCartItem.product.price);
-        existingCartItem.vat = existingCartItem.price * 0.2; // Assuming VAT is 20%
+        existingCartItem.vat = existingCartItem.price * 0.15;
       }
     },
     deleteCart: (state, action: PayloadAction<{ productId: string }>) => {

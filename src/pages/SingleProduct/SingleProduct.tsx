@@ -14,15 +14,20 @@ import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { toast } from "sonner";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
+import { useAppDispatch } from "../../redux/hooks";
+import { addCart } from "../../redux/features/cart/cartSlice";
 
 export const SingleProduct = () => {
   let { productId } = useParams();
   const { data: productData, isLoading } = useGetProductsByIdQuery(
     productId as string
   );
+  const dispatch = useAppDispatch();
   // states
   const [count, setCount] = useState(1);
   const [isAddToCartDisabled, setIsAddToCartDisabled] = useState(false);
+
+  //
 
   useEffect(() => {
     // Update the disabled state whenever count or stock quantity changes
@@ -51,6 +56,14 @@ export const SingleProduct = () => {
       toasterId = toast.warning("The minimum quantity is 1.", {
         id: toasterId,
       });
+    }
+  };
+
+  const handleAddToCart = () => {
+    if (productData) {
+      const product = productData.data;
+      dispatch(addCart({ product, quantity: count }));
+      toast.success("Product added to cart!");
     }
   };
 
@@ -158,6 +171,7 @@ export const SingleProduct = () => {
                   colorKey="primary"
                   className="text-white h-[48px] w-[200px] rounded-full font-poppins text-[16px]"
                   disabled={isAddToCartDisabled}
+                  onClick={handleAddToCart}
                 >
                   Add To Cart
                 </CustomButton>
