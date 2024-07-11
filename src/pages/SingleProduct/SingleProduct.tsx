@@ -73,7 +73,7 @@ export const SingleProduct = () => {
                   );
                 }}
               >
-                <div className="flex relative w-full overflow-y-scroll mt-4">
+                <div className="flex relative w-[90%] overflow-y-scroll mt-4">
                   {productData?.data.coverPictures.map((image, index) => (
                     <PhotoView src={image}>
                       <img
