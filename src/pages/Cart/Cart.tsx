@@ -9,12 +9,14 @@ import {
 import { getCarts } from "../../redux/features/cart/cartSlice";
 import { useAppSelector } from "../../redux/hooks";
 import { colors } from "../../theme/color";
-import { Route } from "react-router-dom";
+import { Route, useNavigate } from "react-router-dom";
 import { Col, Row } from "antd";
 import { CartCard } from "./components/Cart";
 import { TCart } from "../../redux/features/cart/types";
+import { toast } from "sonner";
 
 export const Cart = () => {
+  const navigate = useNavigate();
   const carts = useAppSelector(getCarts);
 
   const calculateTotals = (carts: TCart[]) => {
@@ -30,6 +32,21 @@ export const Cart = () => {
   };
 
   const { subTotal, vat, grandTotal } = calculateTotals(carts);
+
+  const handleCheckout = () => {
+    let allItemsValid = true;
+
+    carts.forEach((cart: TCart) => {
+      if (Number(cart.quantity) > Number(cart.product.stockQuantity)) {
+        allItemsValid = false;
+        toast.warning(`Item ${cart.product.productName} exceeds stock limit.`);
+      }
+    });
+
+    if (allItemsValid) {
+      navigate("/checkout");
+    }
+  };
 
   return (
     <MainLayout>
@@ -72,6 +89,7 @@ export const Cart = () => {
                   <CustomButton
                     colorKey="primary"
                     className="text-white h-[48px] w-full rounded-full font-poppins text-[16px]"
+                    onClick={handleCheckout}
                   >
                     Proced To Checkout
                   </CustomButton>

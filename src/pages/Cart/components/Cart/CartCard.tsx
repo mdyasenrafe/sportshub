@@ -49,18 +49,23 @@ export const CartCard: React.FC<CartCardProps> = ({ cart }) => {
 
   return (
     <div className="border-b border-b-[#e1e1e1] p-4">
-      <Row justify="space-between">
-        <Col>
+      <Row justify={"space-between"}>
+        <Col xs={20}>
           <Row gutter={12}>
-            <Col>
+            <Col xs={8} lg={4}>
               <img
                 src={cart.product.thumb}
-                className="w-[100px] h-[100px] rounded-md object-cover"
+                className="w-[80px] h-[80px] md:w-[100px] md:h-[100px] rounded-md object-cover"
                 alt={cart.product.productName}
               />
             </Col>
-            <Col>
-              <Text variant={TextVariant.H3}>{cart.product.productName}</Text>
+            <Col xs={16} lg={20}>
+              <Text
+                variant={TextVariant.H3}
+                className="text-[18px] md:text-2xl font-bold font-figtree"
+              >
+                {cart.product.productName}
+              </Text>
               <div className="border border-[#e1e1e1] flex items-center w-[100px] py-1 rounded-md  justify-around mt-2">
                 <div
                   className="w-[33%] flex justify-center cursor-pointer"
@@ -81,7 +86,7 @@ export const CartCard: React.FC<CartCardProps> = ({ cart }) => {
             </Col>
           </Row>
         </Col>
-        <Col>
+        <Col xs={4}>
           <Text
             variant={TextVariant.H4}
             style={{
@@ -89,6 +94,9 @@ export const CartCard: React.FC<CartCardProps> = ({ cart }) => {
             }}
           >
             ${cart.price}
+          </Text>
+          <Text variant={TextVariant.P6} className="cursor-pointer">
+            Remove Product
           </Text>
         </Col>
       </Row>
