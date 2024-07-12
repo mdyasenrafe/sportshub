@@ -26,12 +26,12 @@ export const Category = () => {
       <Container>
         <div>
           <div className="text-center">
-            <Slide>
+            <Slide triggerOnce={true}>
               <Text variant={TextVariant.H1} className="text-center">
                 Popular Categories
               </Text>
             </Slide>
-            <Fade delay={1e3} cascade damping={1e-1}>
+            <Fade delay={1e3} cascade damping={1e-1} triggerOnce={true}>
               <Text
                 variant={TextVariant.P3}
                 className="mt-[8px]"
@@ -59,7 +59,7 @@ export const Category = () => {
           >
             {CategoriesData.map((data, index) => (
               <SwiperSlide key={index}>
-                <Fade direction="bottom-right">
+                <Fade direction="bottom-right" triggerOnce={true}>
                   <CategoryCard
                     data={data}
                     onClick={() => handleQuery(data.link)}
@@ -71,7 +71,7 @@ export const Category = () => {
         </div>
         <div className="hidden lg:grid grid-cols-4 gap-6 mt-[44px]">
           {CategoriesData.map((data) => (
-            <Fade direction="up">
+            <Fade direction="up" triggerOnce={true}>
               <CategoryCard
                 key={data.name}
                 data={data}

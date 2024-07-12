@@ -147,12 +147,12 @@ export const FeatureProducts = () => {
       <Container>
         <div>
           <div className="text-center mb-8">
-            <Slide>
+            <Slide triggerOnce={true}>
               <Text variant={TextVariant.H1} className="text-center">
                 Feature Products
               </Text>
             </Slide>
-            <Fade delay={1e3} cascade damping={1e-1}>
+            <Fade delay={1e3} cascade damping={1e-1} triggerOnce={true}>
               <Text
                 variant={TextVariant.P3}
                 className="mt-[8px]"
