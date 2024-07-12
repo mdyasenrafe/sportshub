@@ -1,4 +1,5 @@
 import { BaseApi } from "../../../api/BaseApi";
+import { Filters } from "../../../pages/Products/components/types";
 import { TProduct } from "../../../types/productTypes";
 import {
   addProduct,
@@ -23,10 +24,22 @@ const ProductApi = BaseApi.injectEndpoints({
         } catch (error) {}
       },
     }),
-    getProducts: builder.query<ProductsResponse, void>({
-      query: () => ({
-        url: "/products",
-        method: "GET",
+    getProducts: builder.query<ProductsResponse, any>({
+      query: (filters) => ({
+        url: "products",
+        params: {
+          ...(filters.searchTerm && { searchTerm: filters.searchTerm }),
+          ...(filters.category && { category: filters.category }),
+          ...(filters.priceGte !== undefined && {
+            "price[gte]": filters.priceGte,
+          }),
+          ...(filters.priceLte !== undefined && {
+            "price[lte]": filters.priceLte,
+          }),
+          ...(filters.brand && { brand: filters.brand }),
+          ...(filters.rating !== undefined && { rating: filters.rating }),
+          ...(filters.sort && { sort: filters.sort }),
+        },
       }),
       async onQueryStarted(_id, { dispatch, queryFulfilled }) {
         try {

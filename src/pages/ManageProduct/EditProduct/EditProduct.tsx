@@ -4,7 +4,6 @@ import { SubmitHandler } from "react-hook-form";
 import { useImageUploadMutation } from "../../../api/uploadApi";
 import {
   useGetProductsByIdQuery,
-  useGetProductsQuery,
   useUpdateProductMutation,
 } from "../../../redux/features/product/productApi";
 import { useNavigate, useParams } from "react-router-dom";
@@ -56,7 +55,12 @@ export const EditProduct = () => {
         data.coverPictures = initialProductValues.coverPictures;
       }
       data._id = initialProductValues._id;
-      const res = await editProduct(data);
+      const bodyData = {
+        ...data,
+        stockQuantity: Number(data.stockQuantity),
+        rating: Number(data.rating),
+      };
+      const res = await editProduct(bodyData);
       toast.success("Product updated succesfully");
       navigate("/manage-product/products");
     } catch (err) {
