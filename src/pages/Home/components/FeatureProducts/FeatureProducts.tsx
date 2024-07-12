@@ -132,9 +132,12 @@ import { useAppSelector } from "../../../../redux/hooks";
 // ];
 const featuredProducts: TProduct[] = [];
 export const FeatureProducts = () => {
-  const { data, isLoading } = useGetProductsQuery(undefined, {
-    pollingInterval: 3000,
-  });
+  const { data, isLoading } = useGetProductsQuery(
+    { limit: 10, page: 1 },
+    {
+      pollingInterval: 3000,
+    }
+  );
 
   const featuredProducts = useAppSelector(getProducts);
 

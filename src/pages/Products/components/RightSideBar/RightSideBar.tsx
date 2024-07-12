@@ -92,19 +92,21 @@ export const RightSideBar: React.FC<RightSideBarProps> = ({
           ))}
         </Row>
       )}
-      <Pagination
-        current={currentPage}
-        pageSize={pageSize}
-        onChange={(page, pageSize) => {
-          setCurrentPage(page);
-          setPageSize(pageSize);
-        }}
-        total={total}
-        showSizeChanger
-        onShowSizeChange={(current, size) => {
-          setPageSize(size);
-        }}
-      />
+      <div className="mt-4">
+        <Pagination
+          current={currentPage}
+          pageSize={pageSize}
+          onChange={(page, pageSize) => {
+            setCurrentPage(page);
+            setPageSize(pageSize);
+          }}
+          total={total}
+          showSizeChanger
+          onShowSizeChange={(current, size) => {
+            setPageSize(size);
+          }}
+        />
+      </div>
     </div>
   );
 };

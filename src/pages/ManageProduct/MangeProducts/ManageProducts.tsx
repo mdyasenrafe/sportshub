@@ -9,7 +9,7 @@ import { useAppSelector } from "../../../redux/hooks";
 import { getProducts } from "../../../redux/features/product/productSlice";
 
 export const ManageProducts = () => {
-  const { data, isLoading } = useGetProductsQuery({ limit: 10, page: 1 });
+  const { data, isLoading } = useGetProductsQuery(undefined);
 
   const featuredProducts = useAppSelector(getProducts);
 
