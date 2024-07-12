@@ -70,7 +70,7 @@ export const Cart = () => {
             <Row gutter={24}>
               <Col xs={24} md={16} className="h-full">
                 <div className="border border-[#E1E1E1] rounded-lg h-full">
-                  {carts.map((cart) => (
+                  {carts.map((cart: TCart) => (
                     <CartCard cart={cart} key={cart.product._id} />
                   ))}
                 </div>

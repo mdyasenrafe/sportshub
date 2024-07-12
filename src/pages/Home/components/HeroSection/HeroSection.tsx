@@ -17,6 +17,7 @@ import {
 } from "../../../../components/atoms";
 import { FaShoppingCart } from "react-icons/fa";
 import { colors } from "../../../../theme/color";
+import { useNavigate } from "react-router-dom";
 
 export const HeroSection = () => {
   const sportsCarouselData = [
@@ -45,6 +46,8 @@ export const HeroSection = () => {
       link: "/category/cycling",
     },
   ];
+
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -86,7 +89,7 @@ export const HeroSection = () => {
               <Text variant={TextVariant.P1}>{item.description}</Text>
               <CustomButton
                 colorKey="primary"
-                onClick={() => console.log("Clicked!")}
+                onClick={() => navigate("/products")}
                 icon={<FaShoppingCart />}
                 className="text-white h-[40px] w-[232px] mt-4"
                 iconPosition="end"

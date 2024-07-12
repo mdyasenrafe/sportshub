@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema } from "../../../../Schema/Schema";
 import emailjs from "@emailjs/browser";
 import { toast } from "sonner";
+import { Fade } from "react-awesome-reveal";
 
 type ContactFormData = {
   name: string;
@@ -52,37 +53,42 @@ export const Contact = () => {
       <Container>
         <Row>
           <Col md={12}>
-            <img src={ContactImage} className=" h-full" />
+            <Fade cascade duration={2500}>
+              <img src={ContactImage} className=" h-full" />
+            </Fade>
           </Col>
-          <Col md={12}>
-            <div className="mb-4">
-              <Text variant={TextVariant.H1}>Get in Touch</Text>
-              <Text
-                variant={TextVariant.P3}
-                className="mt-[8px]"
-                style={{ color: colors.darkGray }}
-              >
-                Have a question or suggestion? Drop us a line – we're here to
-                help!
-              </Text>
-            </div>
 
-            <FormWrapper
-              onSubmit={onSubmit}
-              resolver={zodResolver(contactSchema)}
-            >
-              <FormInput label="Name" type="text" name="name" />
-              <FormInput label="Email" type="email" name="email" />
-              <FormInput label="Subject" type="text" name="subject" />
-              <FormTextArea label="Body" name="body" />
-              <CustomButton
-                colorKey="primary"
-                htmlType="submit"
-                className="w-full h-[48px] text-[18px] text-white"
+          <Col md={12}>
+            <Fade cascade duration={2500}>
+              <div className="mb-4">
+                <Text variant={TextVariant.H1}>Get in Touch</Text>
+                <Text
+                  variant={TextVariant.P3}
+                  className="mt-[8px]"
+                  style={{ color: colors.darkGray }}
+                >
+                  Have a question or suggestion? Drop us a line – we're here to
+                  help!
+                </Text>
+              </div>
+
+              <FormWrapper
+                onSubmit={onSubmit}
+                resolver={zodResolver(contactSchema)}
               >
-                Submit
-              </CustomButton>
-            </FormWrapper>
+                <FormInput label="Name" type="text" name="name" />
+                <FormInput label="Email" type="email" name="email" />
+                <FormInput label="Subject" type="text" name="subject" />
+                <FormTextArea label="Body" name="body" />
+                <CustomButton
+                  colorKey="primary"
+                  htmlType="submit"
+                  className="w-full h-[48px] text-[18px] text-white"
+                >
+                  Submit
+                </CustomButton>
+              </FormWrapper>
+            </Fade>
           </Col>
         </Row>
       </Container>

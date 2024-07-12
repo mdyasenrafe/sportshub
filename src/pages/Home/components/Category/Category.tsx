@@ -7,6 +7,7 @@ import "swiper/css/pagination";
 import { useNavigate } from "react-router-dom";
 import { CategoriesData } from "../../../../constant/CategoriesData";
 import { CategoryCard } from "./components/CategoryCard";
+import { Fade, Slide } from "react-awesome-reveal";
 
 export const Category = () => {
   const navigate = useNavigate();
@@ -25,16 +26,20 @@ export const Category = () => {
       <Container>
         <div>
           <div className="text-center">
-            <Text variant={TextVariant.H1} className="text-center">
-              Popular Categories
-            </Text>
-            <Text
-              variant={TextVariant.P3}
-              className="mt-[8px]"
-              style={{ color: colors.darkGray }}
-            >
-              Most popular categories of equipments, sorted by popularity
-            </Text>
+            <Slide>
+              <Text variant={TextVariant.H1} className="text-center">
+                Popular Categories
+              </Text>
+            </Slide>
+            <Fade delay={1e3} cascade damping={1e-1}>
+              <Text
+                variant={TextVariant.P3}
+                className="mt-[8px]"
+                style={{ color: colors.darkGray }}
+              >
+                Most popular categories of equipments, sorted by popularity
+              </Text>
+            </Fade>
           </div>
         </div>
         <div className="mt-[48px] mb-[48px] lg:hidden">
@@ -54,21 +59,25 @@ export const Category = () => {
           >
             {CategoriesData.map((data, index) => (
               <SwiperSlide key={index}>
-                <CategoryCard
-                  data={data}
-                  onClick={() => handleQuery(data.link)}
-                />
+                <Fade direction="bottom-right">
+                  <CategoryCard
+                    data={data}
+                    onClick={() => handleQuery(data.link)}
+                  />
+                </Fade>
               </SwiperSlide>
             ))}
           </Swiper>
         </div>
         <div className="hidden lg:grid grid-cols-4 gap-6 mt-[44px]">
           {CategoriesData.map((data) => (
-            <CategoryCard
-              key={data.name}
-              data={data}
-              onClick={() => handleQuery(data.link)}
-            />
+            <Fade direction="up">
+              <CategoryCard
+                key={data.name}
+                data={data}
+                onClick={() => handleQuery(data.link)}
+              />
+            </Fade>
           ))}
         </div>
       </Container>

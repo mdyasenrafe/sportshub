@@ -2,6 +2,7 @@ import React from "react";
 import { Text, TextVariant } from "../../../../../../components/atoms";
 import { colors } from "../../../../../../theme/color";
 import { CategoryCardProps } from "./types";
+import { Bounce, Fade } from "react-awesome-reveal";
 
 export const CategoryCard: React.FC<CategoryCardProps> = ({
   data,

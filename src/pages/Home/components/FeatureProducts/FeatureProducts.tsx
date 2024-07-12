@@ -7,6 +7,7 @@ import { ProductCard } from "../../../../components";
 import { useGetProductsQuery } from "../../../../redux/features/product/productApi";
 import { getProducts } from "../../../../redux/features/product/productSlice";
 import { useAppSelector } from "../../../../redux/hooks";
+import { Slide, Fade } from "react-awesome-reveal";
 
 //   {
 //     productName: "Trail Blazing Hiking Backpack",
@@ -146,17 +147,21 @@ export const FeatureProducts = () => {
       <Container>
         <div>
           <div className="text-center mb-8">
-            <Text variant={TextVariant.H1} className="text-center">
-              Feature Products
-            </Text>
-            <Text
-              variant={TextVariant.P3}
-              className="mt-[8px]"
-              style={{ color: colors.darkGray }}
-            >
-              Discover our latest featured products and explore their unique
-              features.
-            </Text>
+            <Slide>
+              <Text variant={TextVariant.H1} className="text-center">
+                Feature Products
+              </Text>
+            </Slide>
+            <Fade delay={1e3} cascade damping={1e-1}>
+              <Text
+                variant={TextVariant.P3}
+                className="mt-[8px]"
+                style={{ color: colors.darkGray }}
+              >
+                Discover our latest featured products and explore their unique
+                features.
+              </Text>
+            </Fade>
           </div>
           {isLoading ? (
             <div>
