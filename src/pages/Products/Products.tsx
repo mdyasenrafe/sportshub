@@ -3,13 +3,9 @@ import { Input, Select, Button, Row, Col } from "antd";
 import { useGetProductsQuery } from "../../redux/features/product/productApi";
 import { MainLayout } from "../../components/atoms/layout/MainLayout";
 import { Container } from "../../components/atoms";
-import { AiOutlineBars, AiOutlineClose } from "react-icons/ai";
 import { LeftSideBar, RightSideBar } from "./components";
 import { TProduct } from "../../types/productTypes";
 import { Filters } from "./components/types";
-
-const { Search } = Input;
-const { Option } = Select;
 
 export const Products: React.FC = () => {
   const [tempFilters, setTempFilters] = useState<Filters>({
@@ -19,6 +15,7 @@ export const Products: React.FC = () => {
     priceGte: undefined,
     priceLte: undefined,
     rating: undefined,
+    sort: undefined,
   });
 
   const [filters, setFilters] = useState<Filters>({
@@ -28,6 +25,7 @@ export const Products: React.FC = () => {
     priceGte: undefined,
     priceLte: undefined,
     rating: undefined,
+    sort: undefined,
   });
 
   const [sort, setSort] = useState<string>("");
@@ -37,10 +35,6 @@ export const Products: React.FC = () => {
 
   const handleSearch = (value: string) => {
     setFilters({ ...filters, searchTerm: value });
-  };
-
-  const handleSortChange = (value: string) => {
-    setSort(value);
   };
 
   const resetFilters = () => {
@@ -69,6 +63,9 @@ export const Products: React.FC = () => {
     refetch();
   };
 
+  const handleSortChange = (value: string) => {
+    setFilters({ ...filters, sort: value });
+  };
   return (
     <MainLayout>
       <Container>
@@ -87,6 +84,8 @@ export const Products: React.FC = () => {
               setShowSideBar={setShowSideBar}
               products={products?.data as TProduct[]}
               isLoading={isLoading}
+              handleSearch={handleSearch}
+              handleSortChange={handleSortChange}
             />
           </div>
         </section>

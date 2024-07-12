@@ -6,6 +6,7 @@ export type Filters = {
   brand: string;
   rating?: number;
   price?: string;
+  sort?: string;
 };
 
 export type LeftSideBarProps = {
