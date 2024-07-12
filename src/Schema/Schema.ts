@@ -13,7 +13,16 @@ export const createProductSchema = z.object({
   brand: z.string().min(1, { message: "Brand is required" }),
   stockQuantity: z
     .string()
-    .regex(/^\d+$/, { message: "Stock quantity must be a valid number" }),
+    .regex(/^\d+(\.\d+)?$/, {
+      message: "Stock quantity must be a valid number",
+    })
+    .transform((val) => {
+      const floored = Math.floor(parseFloat(val));
+      if (!Number.isInteger(floored)) {
+        throw new Error("Stock quantity must be an integer");
+      }
+      return floored.toString();
+    }),
   rating: z.string().regex(/^[0-5](\.[0-9]+)?$/, {
     message: "Rating must be a number between 0 and 5",
   }),
@@ -22,4 +31,22 @@ export const createProductSchema = z.object({
     .regex(/^\d+(\.\d{1,2})?$/, { message: "Enter a valid price" }),
   thumb: z.string(),
   coverPictures: z.array(z.string()),
+});
+
+export const userDetailsSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  phoneNumber: z.string().min(1, "Phone number is required"),
+  address: z.string().min(1, "Delivery address is required"),
+  paymentMethod: z.string().min(1, { message: "Category is required" }),
+});
+
+export const contactSchema = z.object({
+  name: z.string().min(1, "Name is required").max(100, "Name is too long"),
+  email: z.string().email("Invalid email address"),
+  subject: z
+    .string()
+    .min(1, "Subject is required")
+    .max(100, "Subject is too long"),
+  body: z.string().min(1, "Body is required").max(500, "Body is too long"),
 });

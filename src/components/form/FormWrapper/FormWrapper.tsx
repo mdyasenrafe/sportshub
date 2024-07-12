@@ -37,9 +37,9 @@ export const FormWrapper: React.FC<TFormProps> = ({
   const methods = useForm(formConfig);
 
   const submit: SubmitHandler<FieldValues> = (data) => {
-    console.log("data >", data);
+    // console.log("data >", data);
     onSubmit(data);
-    methods.reset();
+    // methods.reset();
   };
 
   return (

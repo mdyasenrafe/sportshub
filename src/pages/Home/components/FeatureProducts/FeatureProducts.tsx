@@ -4,66 +4,10 @@ import { Container, Text, TextVariant } from "../../../../components/atoms";
 import { TProduct } from "../../../../types/productTypes";
 import { Col, Flex, Row, Spin } from "antd";
 import { ProductCard } from "../../../../components";
-import { useGetProductsQuery } from "../../../../redux/features/ProductApi";
-import { getProducts } from "../../../../redux/features/ProductSlice";
+import { useGetProductsQuery } from "../../../../redux/features/product/productApi";
+import { getProducts } from "../../../../redux/features/product/productSlice";
 import { useAppSelector } from "../../../../redux/hooks";
 
-// const featuredProducts: TProduct[] = [
-//   {
-//     productName: "Endurance Running Shoes",
-//     description:
-//       "Experience unmatched durability and comfort with our Endurance Running Shoes. Designed for the long haul, these shoes feature advanced cushioning technology that absorbs impact and optimizes rebound, providing you with the support needed to keep pushing your limits. With a breathable mesh upper that keeps your feet cool and dry, and a robust outsole that grips on varied surfaces, you are set for any adventure. The dynamic fit system adapts to the shape of your foot, ensuring a perfect fit with no slippage. Whether you're hitting the trails or the track, these shoes are your ideal companion for achieving new personal bests. Tagged with a high abrasion resistance, they're built to withstand rigorous training routines and long-distance runs. Upgrade your running gear and enjoy a blend of functionality and unmatched comfort.",
-//     category: "Running",
-//     brand: "Athletix",
-//     stockQuantity: 150,
-//     rating: 4.5,
-//     price: "$120.00",
-//     image: "https://i.ibb.co/FbRDRSJ/image.png",
-//   },
-//   {
-//     productName: "Pro Swim Goggles",
-//     description:
-//       "Dive into excellence with our Pro Swim Goggles. Engineered for competitive swimmers, these goggles offer superior clarity and are designed to reduce drag and promote optimal alignment in the water. The anti-fog treatment ensures you maintain clear vision during your swim, while the wide peripheral range allows you to keep an eye on your rivals. Featuring a dual strap for security and an adjustable nose bridge for comfort, these goggles are both practical and comfortable. The mirrored lens technology not only protects your eyes from harmful UV rays but also minimizes glare, allowing you to focus on your swimming technique. Approved by international swimming federations, they are a must-have for anyone serious about competitive swimming. Get ready to swim like a pro, with visibility and comfort that adjusts seamlessly to your needs.",
-//     category: "Water Sports",
-//     brand: "AquaFast",
-//     stockQuantity: 200,
-//     rating: 4.8,
-//     price: "$35.00",
-//     image: "url-to-swim-goggles-image.jpg",
-//   },
-//   {
-//     productName: "Elite Basketball",
-//     description:
-//       "The Elite Basketball is crafted for serious players who demand high performance on the court. Made with premium composite leather, this basketball offers excellent grip and control, allowing you to execute precise passes and shots with confidence. Its moisture-wicking cover keeps the ball dry and responsive, while the reinforced bladder ensures maximum air retention for consistent bounce and long-lasting play. Whether you're training or competing, the Elite Basketball is designed to meet the rigorous standards of professional play. Endorsed by top athletes, this basketball will elevate your game with its superior quality and durability. Step up to the challenge and dominate the court with the Elite Basketball.",
-//     category: "Team Sports",
-//     brand: "ProHoop",
-//     stockQuantity: 300,
-//     rating: 4.7,
-//     price: "$60.00",
-//     image: "https://i.ibb.co/sRv1B2J/image.png",
-//   },
-//   {
-//     productName: "Yoga Master Mat",
-//     description:
-//       "Transform your practice with the Yoga Master Mat. This mat provides a perfect balance of comfort and stability, designed to support you through every pose. With its non-slip surface and optimal thickness, it offers excellent cushioning for your joints and a firm grip to keep you grounded. Made from eco-friendly materials, the Yoga Master Mat is free from harmful chemicals and is biodegradable, making it a great choice for both you and the environment. Its lightweight design makes it easy to carry, whether you're heading to the studio or practicing at home. Enhance your yoga experience with a mat that blends functionality, comfort, and sustainability. The Yoga Master Mat is your ideal partner on the journey to physical and mental well-being.",
-//     category: "Yoga",
-//     brand: "ZenFlex",
-//     stockQuantity: 100,
-//     rating: 4.9,
-//     price: "$45.00",
-//     image: "url-to-yoga-mat-image.jpg",
-//   },
-//   {
-//     productName: "Pro Cyclist Helmet",
-//     description:
-//       "Stay safe and stylish on your rides with the Pro Cyclist Helmet. This helmet combines cutting-edge safety features with a sleek design, ensuring you look good while staying protected. It features a durable polycarbonate shell and EPS foam liner that absorbs impact, providing top-notch protection in case of a fall. The adjustable fit system allows for a personalized and secure fit, while the ventilation system keeps you cool and comfortable, even on long rides. The lightweight design reduces strain on your neck, making it ideal for extended cycling sessions. Available in various colors and sizes, the Pro Cyclist Helmet is perfect for riders of all levels. Prioritize your safety without compromising on style with this essential piece of cycling gear.",
-//     category: "Cycling",
-//     brand: "RideSafe",
-//     stockQuantity: 120,
-//     rating: 4.6,
-//     price: "$75.00",
-//     image: "url-to-cyclist-helmet-image.jpg",
-//   },
 //   {
 //     productName: "Trail Blazing Hiking Backpack",
 //     description:
@@ -188,9 +132,12 @@ import { useAppSelector } from "../../../../redux/hooks";
 // ];
 const featuredProducts: TProduct[] = [];
 export const FeatureProducts = () => {
-  const { data, isLoading } = useGetProductsQuery(undefined, {
-    // pollingInterval: 3000,
-  });
+  const { data, isLoading } = useGetProductsQuery(
+    { limit: 10, page: 1 },
+    {
+      pollingInterval: 3000,
+    }
+  );
 
   const featuredProducts = useAppSelector(getProducts);
 

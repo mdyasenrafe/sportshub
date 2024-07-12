@@ -4,3 +4,4 @@ export * from "./Products";
 export * from "./SingleProduct";
 export * from "./Checkout";
 export * from "./Cart";
+export * from "./OrderSuccessful";

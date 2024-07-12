@@ -12,7 +12,7 @@ export const Category = () => {
   const navigate = useNavigate();
 
   const handleQuery = (query: string) => {
-    navigate(`/products?category=${query}`);
+    navigate(`/products`);
   };
 
   return (

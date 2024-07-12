@@ -1,5 +1,13 @@
 import React from "react";
-import { About, Cart, Checkout, Home, Products, SingleProduct } from "../pages";
+import {
+  About,
+  Cart,
+  Checkout,
+  Home,
+  OrderSuccessful,
+  Products,
+  SingleProduct,
+} from "../pages";
 import {
   CreateProduct,
   EditProduct,
@@ -85,6 +93,13 @@ export const appRoutes: AppRoute[] = [
     name: "Edit Product",
     path: "manage-product/edit/:productId",
     component: <EditProduct />,
+    isNavItem: false,
+  },
+  {
+    id: 8,
+    name: "Order Successful",
+    path: "order-successful",
+    component: <OrderSuccessful />,
     isNavItem: false,
   },
 ];

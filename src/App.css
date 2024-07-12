@@ -44,3 +44,10 @@ label {
 .ant-select-selection-item {
   font-size: 14px !important;
 }
+.bg-primary {
+  background-color: #9eb567 !important;
+}
+
+.border-lightgray {
+  border: 1px solid #e1e1e1;
+}
