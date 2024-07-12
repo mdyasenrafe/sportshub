@@ -22,15 +22,14 @@ export const cartSlice = createSlice({
 
       if (existingCartItem) {
         existingCartItem.quantity += quantity;
-        existingCartItem.price =
-          existingCartItem.quantity * parseFloat(product.price);
+        existingCartItem.price = existingCartItem.quantity * product.price;
         existingCartItem.vat = existingCartItem.price * 0.15;
       } else {
         const newCartItem: TCart = {
           product,
           quantity,
-          price: quantity * parseFloat(product.price),
-          vat: quantity * parseFloat(product.price) * 0.15, // Assuming VAT is 15%
+          price: quantity * product.price,
+          vat: quantity * product.price * 0.15, // Assuming VAT is 15%
         };
         state.cart.push(newCartItem);
       }
@@ -46,8 +45,7 @@ export const cartSlice = createSlice({
 
       if (existingCartItem) {
         existingCartItem.quantity = quantity;
-        existingCartItem.price =
-          quantity * parseFloat(existingCartItem.product.price);
+        existingCartItem.price = quantity * existingCartItem.product.price;
         existingCartItem.vat = existingCartItem.price * 0.15;
       }
     },

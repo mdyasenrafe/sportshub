@@ -6,7 +6,7 @@ export interface TProduct {
   brand: string;
   stockQuantity: number;
   rating: number;
-  price: string;
+  price: number;
   thumb: string;
   coverPictures: string[];
 }

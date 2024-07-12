@@ -44,6 +44,7 @@ export const CreateProduct = () => {
       const bodyData = {
         ...data,
         stockQuantity: Number(data.stockQuantity),
+        price: Number(data.price),
       };
 
       // Call another API after all images are uploaded
