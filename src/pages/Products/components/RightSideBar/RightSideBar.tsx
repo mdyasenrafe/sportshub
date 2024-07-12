@@ -1,4 +1,14 @@
-import { Col, Flex, Input, Radio, Row, Select, Space, Spin } from "antd";
+import {
+  Col,
+  Flex,
+  Input,
+  Pagination,
+  Radio,
+  Row,
+  Select,
+  Space,
+  Spin,
+} from "antd";
 import React from "react";
 import { AiOutlineBars } from "react-icons/ai";
 import { TProduct } from "../../../../types/productTypes";
@@ -12,6 +22,11 @@ type RightSideBarProps = {
   isLoading: boolean;
   handleSearch: (value: string) => void;
   handleSortChange: (value: string) => void;
+  currentPage: number;
+  pageSize: number;
+  setPageSize: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  total: number;
 };
 
 export const RightSideBar: React.FC<RightSideBarProps> = ({
@@ -20,6 +35,11 @@ export const RightSideBar: React.FC<RightSideBarProps> = ({
   isLoading,
   handleSearch,
   handleSortChange,
+  currentPage,
+  pageSize,
+  setPageSize,
+  setCurrentPage,
+  total,
 }) => {
   return (
     <div className="col-span-3 border border-[#e2e8f0] rounded-[8px] p-4">
@@ -72,6 +92,19 @@ export const RightSideBar: React.FC<RightSideBarProps> = ({
           ))}
         </Row>
       )}
+      <Pagination
+        current={currentPage}
+        pageSize={pageSize}
+        onChange={(page, pageSize) => {
+          setCurrentPage(page);
+          setPageSize(pageSize);
+        }}
+        total={total}
+        showSizeChanger
+        onShowSizeChange={(current, size) => {
+          setPageSize(size);
+        }}
+      />
     </div>
   );
 };

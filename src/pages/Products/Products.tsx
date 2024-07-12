@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Input, Select, Button, Row, Col } from "antd";
+import { Input, Select, Button, Row, Col, Pagination } from "antd";
 import { useGetProductsQuery } from "../../redux/features/product/productApi";
 import { MainLayout } from "../../components/atoms/layout/MainLayout";
 import { Container } from "../../components/atoms";
@@ -8,46 +8,47 @@ import { TProduct } from "../../types/productTypes";
 import { Filters } from "./components/types";
 
 export const Products: React.FC = () => {
+  const [pageSize, setPageSize] = useState(10);
   const [tempFilters, setTempFilters] = useState<Filters>({
-    searchTerm: "",
-    category: "",
-    brand: "",
+    searchTerm: undefined,
+    category: undefined,
+    brand: undefined,
     priceGte: undefined,
     priceLte: undefined,
     rating: undefined,
     sort: undefined,
   });
-
-  const [filters, setFilters] = useState<Filters>({
-    searchTerm: "",
-    category: "",
-    brand: "",
-    priceGte: undefined,
-    priceLte: undefined,
-    rating: undefined,
-    sort: undefined,
-  });
-
-  const [sort, setSort] = useState<string>("");
+  const [filters, setFilters] = useState<Filters>(tempFilters);
   const [showSideBar, setShowSideBar] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const { data: products, isLoading, refetch } = useGetProductsQuery(filters);
+  const { data: products, isLoading } = useGetProductsQuery({
+    ...filters,
+    page: currentPage,
+    limit: pageSize,
+  });
 
   const handleSearch = (value: string) => {
     setFilters({ ...filters, searchTerm: value });
   };
 
   const resetFilters = () => {
-    const resetState = {
+    setTempFilters({
       searchTerm: "",
       category: "",
       brand: "",
       priceGte: undefined,
       priceLte: undefined,
       rating: undefined,
-    };
-    setTempFilters(resetState);
-    setFilters(resetState);
+    });
+    setFilters({
+      searchTerm: "",
+      category: "",
+      brand: "",
+      priceGte: undefined,
+      priceLte: undefined,
+      rating: undefined,
+    });
   };
 
   useEffect(() => {
@@ -60,12 +61,13 @@ export const Products: React.FC = () => {
 
   const handleApply = () => {
     setFilters(tempFilters);
-    refetch();
+    // refetch();
   };
 
   const handleSortChange = (value: string) => {
     setFilters({ ...filters, sort: value });
   };
+
   return (
     <MainLayout>
       <Container>
@@ -86,6 +88,11 @@ export const Products: React.FC = () => {
               isLoading={isLoading}
               handleSearch={handleSearch}
               handleSortChange={handleSortChange}
+              currentPage={currentPage}
+              pageSize={pageSize}
+              total={products?.meta.total as number}
+              setCurrentPage={setCurrentPage}
+              setPageSize={setPageSize}
             />
           </div>
         </section>

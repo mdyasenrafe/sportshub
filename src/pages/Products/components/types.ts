@@ -1,12 +1,14 @@
 export type Filters = {
-  searchTerm: string;
-  category: string;
+  searchTerm?: string;
+  category?: string;
+  brand?: string;
   priceGte?: number;
   priceLte?: number;
-  brand: string;
   rating?: number;
   price?: string;
   sort?: string;
+  limit?: number; // Optional pagination parameter
+  page?: number; // Optional pagination parameter
 };
 
 export type LeftSideBarProps = {

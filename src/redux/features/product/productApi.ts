@@ -24,28 +24,41 @@ const ProductApi = BaseApi.injectEndpoints({
         } catch (error) {}
       },
     }),
-    getProducts: builder.query<ProductsResponse, any>({
-      query: (filters) => ({
-        url: "products",
-        params: {
-          ...(filters.searchTerm && { searchTerm: filters.searchTerm }),
-          ...(filters.category && { category: filters.category }),
-          ...(filters.priceGte !== undefined && {
-            "price[gte]": filters.priceGte,
-          }),
-          ...(filters.priceLte !== undefined && {
-            "price[lte]": filters.priceLte,
-          }),
-          ...(filters.brand && { brand: filters.brand }),
-          ...(filters.rating !== undefined && { rating: filters.rating }),
-          ...(filters.sort && { sort: filters.sort }),
-        },
-      }),
-      async onQueryStarted(_id, { dispatch, queryFulfilled }) {
+    getProducts: builder.query<ProductsResponse, Filters | undefined>({
+      query: (filters) => {
+        let params: any = {};
+        if (filters) {
+          params = Object.keys(filters).reduce((acc, key) => {
+            const filterKey = key as keyof Filters;
+            const value = filters[filterKey];
+            if (value !== undefined) {
+              if (filterKey === "priceGte") {
+                acc["price[gte]"] = value;
+              } else if (filterKey === "priceLte") {
+                acc["price[lte]"] = value;
+              } else {
+                acc[filterKey] = value;
+              }
+            }
+            return acc;
+          }, {} as Record<string, any>);
+          if (filters.limit !== undefined) {
+            params.limit = filters.limit;
+          }
+          if (filters.page !== undefined) {
+            params.page = filters.page;
+          }
+        }
+
+        return { url: "products", params };
+      },
+      onQueryStarted: async (filters, { dispatch, queryFulfilled }) => {
         try {
           const { data } = await queryFulfilled;
           dispatch(setProducts(data.data));
-        } catch (error) {}
+        } catch (error) {
+          console.error("Failed to fetch products:", error);
+        }
       },
       providesTags: ["Products"],
     }),
