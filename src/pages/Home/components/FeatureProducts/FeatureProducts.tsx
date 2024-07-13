@@ -15,10 +15,9 @@ import { useAppSelector } from "../../../../redux/hooks";
 import { Slide, Fade } from "react-awesome-reveal";
 import { useNavigate } from "react-router-dom";
 
-const featuredProducts: TProduct[] = [];
 export const FeatureProducts = () => {
   const { data, isLoading } = useGetProductsQuery(
-    { limit: 10, page: 1 },
+    { limit: 10, page: 1, sort: "-createdAt" },
     {
       pollingInterval: 3000,
     }
